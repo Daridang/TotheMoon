@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-
+using TMPro;
 
 public class SwipeManager : MonoBehaviour
 {
@@ -19,6 +19,8 @@ public class SwipeManager : MonoBehaviour
     [SerializeField] private GameObject[] _gameObjects;
     [Range(5, 50)]
     [SerializeField] private int _distanceBetweenObjects;
+    [SerializeField] private TextMeshProUGUI _rocketName;
+    [SerializeField] private TextMeshProUGUI _price;
 
     #endregion
 
@@ -89,6 +91,12 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _rocketName.text = _gameObjects[0].GetComponent<StoreItem>().Name;
+        _price.text = _gameObjects[0].GetComponent<StoreItem>().Price.ToString();
+    }
+
     void Update()
     {
         if(autoDetectSwipes)
@@ -124,7 +132,11 @@ public class SwipeManager : MonoBehaviour
                 _gameObjects[i].transform.position = new Vector3(max, 0, 0);
                 _isSwipeLeft = false;
             }
+
             _currentObject++;
+
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
         }
 
         if(_isSwipeRight)
@@ -135,7 +147,11 @@ public class SwipeManager : MonoBehaviour
                 _gameObjects[i].transform.position = new Vector3(max, 0, 0);
                 _isSwipeRight = false;
             }
+
             _currentObject--;
+
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
         }
     }
 
