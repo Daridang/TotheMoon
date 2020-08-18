@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Rocket : MonoBehaviour
 {
@@ -41,11 +42,19 @@ public class Rocket : MonoBehaviour
     private void OnEnable()
     {
         Timer.OnTimeEnded += SetStatusDying;
+        GameEvents.Instance.onCollectableFound += OnCollectableFound;
     }
 
     private void OnDisable()
     {
         Timer.OnTimeEnded -= SetStatusDying;
+        GameEvents.Instance.onCollectableFound -= OnCollectableFound;
+    }
+
+    private void OnCollectableFound()
+    {
+        SoundManager.Instance.PlayCollectingSound(gameObject.transform.position);
+        _energy.fillAmount += 1f;
     }
 
     private void Awake()
@@ -84,9 +93,10 @@ public class Rocket : MonoBehaviour
             //TODO add Particle Effect for collectables
 
             case "Fuel":
-                SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
+                GameEvents.Instance.CollectableFound();
+                //SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
                 Destroy(other.gameObject);
-                _energy.fillAmount += 1f;
+                //_energy.fillAmount += 1f;
                 break;
             case "StarBonus":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
@@ -232,7 +242,7 @@ public class Rocket : MonoBehaviour
     {
         if(isPressed && state == State.Alive)
         {
-            _rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
+            //_rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
             _energy.fillAmount -= _fSpeed * Time.deltaTime;
             if(!_audioSource.isPlaying)
             {
