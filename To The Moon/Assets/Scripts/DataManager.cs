@@ -35,4 +35,44 @@ public class DataManager : Singleton<DataManager>
         //ClearBullets();
         Debug.Log("Game Saved");
     }
+
+    public void LoadGame()
+    {
+        // 1
+        if(File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            //ClearBullets();
+            //ClearRobots();
+            //RefreshRobots();
+
+            // 2
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            SavedGame save = (SavedGame)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+            //for(int i = 0; i < save.livingTargetPositions.Count; i++)
+            //{
+            //    int position = save.livingTargetPositions[i];
+            //    Target target = targets[position].GetComponent<Target>();
+            //    target.ActivateRobot((RobotTypes)save.livingTargetsTypes[i]);
+            //    target.GetComponent<Target>().ResetDeathTimer();
+            //}
+
+            //// 4
+            //shotsText.text = "Shots: " + save.shots;
+            //hitsText.text = "Hits: " + save.hits;
+            //shots = save.shots;
+            //hits = save.hits;
+
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+    }
 }
