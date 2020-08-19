@@ -12,6 +12,8 @@ TagManager:
   - Time
   - Shield
   - StarBonus
+  - LeftTouch
+  - RightTouch
   layers:
   - Default
   - TransparentFX

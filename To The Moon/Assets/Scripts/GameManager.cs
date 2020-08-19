@@ -22,6 +22,11 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    public string GetLevelName()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -42,11 +47,11 @@ public class GameManager : Singleton<GameManager>
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        for(int i = 0; i < _instancedSystemPrefabs.Count; i++)
-        {
-            Destroy(_instancedSystemPrefabs[i]);
-        }
-        _instancedSystemPrefabs.Clear();
+        //for(int i = 0; i < _instancedSystemPrefabs.Count; i++)
+        //{
+        //    Destroy(_instancedSystemPrefabs[i]);
+        //}
+        //_instancedSystemPrefabs.Clear();
     }
 
     //public void LoadLevel(string levelName)

@@ -5,12 +5,16 @@ using UnityEngine;
 public class DataManager : Singleton<DataManager>
 {
 
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private SavedGame CreateSaveGameObject()
     {
         SavedGame save = new SavedGame();
-        //save.LeveName = "CurrentUnlockedLevelName";
-        //save.RocketType = StoreItem.RocketType.TYPE_1;
-        //save.StarBonus = 0;
+        save.LeveName = GameManager.Instance.GetLevelName();
+        //save.StarBonus = UIManager.Instance
         return save;
     }
 

@@ -7,7 +7,7 @@ public class SoundManager : Singleton<SoundManager>
 
     void Start()
     {
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlayCollectingSound(Vector3 position)

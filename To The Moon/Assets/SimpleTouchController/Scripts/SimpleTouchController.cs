@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
-
 
 public class SimpleTouchController : MonoBehaviour {
 
@@ -15,28 +12,28 @@ public class SimpleTouchController : MonoBehaviour {
 	// PRIVATE
 	[SerializeField]
 	private RectTransform joystickArea;
-	private bool touchPresent = false;
-	private Vector2 movementVector;
+    private Vector2 movementVector;
 
-
-	public Vector2 GetTouchPosition
+    public Vector2 GetTouchPosition
 	{
 		get { return movementVector;}
 	}
 
-    public bool TouchPresent { get => touchPresent; set => touchPresent = value; }
+    public bool TouchPresent { get; set; } = false;
 
     public void BeginDrag()
 	{
 		TouchPresent = true;
-		if(TouchStateEvent != null)
+        Debug.Log("Begin Drag: " + TouchPresent);
+        if(TouchStateEvent != null)
 			TouchStateEvent(TouchPresent);
 	}
 
 	public void EndDrag()
 	{
 		TouchPresent = false;
-		movementVector = joystickArea.anchoredPosition = Vector2.zero;
+        Debug.Log("End Drag: " + TouchPresent);
+        movementVector = joystickArea.anchoredPosition = Vector2.zero;
 
 		if(TouchStateEvent != null)
 			TouchStateEvent(TouchPresent);
