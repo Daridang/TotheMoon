@@ -8,8 +8,7 @@ public class PlayerMoveController : MonoBehaviour
     private SimpleTouchController _leftController;
     private SimpleTouchController _rightController;
     [SerializeField] private float _movementSpeed = 3f;
-    [SerializeField] private float _rotationSpeed = 1f;
-    [SerializeField] private Text _debugText;
+    [SerializeField] private float _rotationSpeed = 2f;
 
 	private Rigidbody _rigidbody;
     private Rocket _rocket;
@@ -24,8 +23,7 @@ public class PlayerMoveController : MonoBehaviour
 
     void Update()
 	{
-        _debugText.text = " wtf???? ";
-        if(_leftController.TouchPresent || _rightController.TouchPresent)
+        if(_leftController.TouchPresent)
         {
             _rocket.Thursting(true);
         }
@@ -33,14 +31,13 @@ public class PlayerMoveController : MonoBehaviour
         {
             _rocket.Thursting(false);
         }
-		_rigidbody.MovePosition(
-            transform.position + 
-            (transform.up * _leftController.GetTouchPosition.y * Time.deltaTime * _movementSpeed));
+		//_rigidbody.MovePosition(
+  //          transform.position + 
+  //          (transform.up * _leftController.GetTouchPosition.y * Time.deltaTime * _movementSpeed));
 
         Quaternion rot = Quaternion.Euler(0f, 0f,
                 transform.localEulerAngles.z + _rightController.GetTouchPosition.x * -_rotationSpeed);
 
         _rigidbody.MoveRotation(rot);
-        //_debugText.text = "Left touch present: " + _leftController.TouchPresent + "\nRight touch present: " + _rightController.TouchPresent + "\nposition: " + _rigidbody.position;
     }
 }

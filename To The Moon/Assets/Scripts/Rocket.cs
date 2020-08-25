@@ -23,7 +23,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private Image _energy;
     [SerializeField] private Image _shield;
     [SerializeField] private TextMeshProUGUI _bonus;
-    [SerializeField] private float _fSpeed = 0.1f;
+    [SerializeField] private float _fuelBurnSpeed = 0.05f;
 
     [SerializeField] private float _rcsThrust = 50f;
     [SerializeField] private float _mainThrust = 125f;
@@ -224,7 +224,7 @@ public class Rocket : MonoBehaviour
         if(Input.GetKey(KeyCode.Space))
         {
             _rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
-            _energy.fillAmount -= _fSpeed * Time.deltaTime;
+            _energy.fillAmount -= _fuelBurnSpeed * Time.deltaTime;
             if(!_audioSource.isPlaying)
             {
                 _audioSource.PlayOneShot(_mainEngine);
@@ -242,8 +242,8 @@ public class Rocket : MonoBehaviour
     {
         if(isPressed && state == State.Alive)
         {
-            //_rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
-            _energy.fillAmount -= _fSpeed * Time.deltaTime;
+            _rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
+            _energy.fillAmount -= _fuelBurnSpeed * Time.deltaTime;
             if(!_audioSource.isPlaying)
             {
                 _audioSource.PlayOneShot(_mainEngine);

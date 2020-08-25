@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1073783373676452569}
   - component: {fileID: 141887167554620167}
   - component: {fileID: 1245673585907583760}
+  - component: {fileID: 649206427675308058}
   m_Layer: 0
   m_Name: Low_Poly_Spaceship_005
   m_TagString: Untagged
@@ -245,12 +246,25 @@ MonoBehaviour:
   _energy: {fileID: 0}
   _shield: {fileID: 0}
   _bonus: {fileID: 0}
-  _fSpeed: 0.1
+  _fuelBurnSpeed: 0.05
   _rcsThrust: 50
   _mainThrust: 125
   _invokeTime: 2
   _mainEngine: {fileID: 0}
   _deathExplosion: {fileID: 0}
   _landing: {fileID: 0}
+  _audioSource: {fileID: 0}
   engine: {fileID: 0}
   explode: {fileID: 0}
+--- !u!114 &649206427675308058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063271444571200509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19921564ff61a9946b091ef4cbaa0fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

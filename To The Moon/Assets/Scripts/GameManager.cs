@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
@@ -14,8 +13,6 @@ public class GameManager : Singleton<GameManager>
     private List<GameObject> _instancedSystemPrefabs;
 
     private string _currentLevelName = string.Empty;
-
-    // List<AsyncOperation> _loadOperations;
 
     private void OnEnable()
     {
@@ -31,7 +28,6 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //_loadOperations = new List<AsyncOperation>();
         _instancedSystemPrefabs = new List<GameObject>();
         InstantiateSystemPrefabs();
     }
@@ -53,44 +49,6 @@ public class GameManager : Singleton<GameManager>
         //}
         //_instancedSystemPrefabs.Clear();
     }
-
-    //public void LoadLevel(string levelName)
-    //{
-    //    AsyncOperation ao = SceneManager.LoadSceneAsync(levelName);
-    //    if(ao == null)
-    //    {
-    //        return;
-    //    }
-    //    ao.completed += OnLoadOperationComplete;
-    //    _loadOperations.Add(ao);
-
-    //    _currentLevelName = levelName;
-    //}
-
-    //public void UnloadLevel(string levelName)
-    //{
-    //    AsyncOperation ao = SceneManager.UnloadSceneAsync(levelName);
-    //    if(ao == null)
-    //    {
-    //        return;
-    //    }
-    //    ao.completed += OnUnloadOperationComplete;
-    //}
-
-
-    //private void OnLoadOperationComplete(AsyncOperation ao)
-    //{
-    //    if(_loadOperations.Contains(ao))
-    //    {
-    //        _loadOperations.Remove(ao);
-    //    }
-    //    Debug.Log("Load complete.");
-    //}
-
-    //private void OnUnloadOperationComplete(AsyncOperation obj)
-    //{
-    //    Debug.Log("Unload complete.");
-    //}
 
     private void InstantiateSystemPrefabs()
     {

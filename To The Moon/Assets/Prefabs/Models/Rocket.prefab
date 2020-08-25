@@ -255,14 +255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb278a4c2f659445827645de2c389b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 2475230995381736446, guid: ee7d2fe86aa34d94a951581eca26e5e1,
-    type: 3}
-  _energy: {fileID: 7751478763034651761, guid: a30b728e19dcd9340ad7e08fbbf595c6, type: 3}
-  _shield: {fileID: 1701196602047093854, guid: 20cad450e182eab448653cae0f2d4e7a, type: 3}
-  _bonus: {fileID: 4162633816027331269, guid: 6e8899b2bc8bf5548bbba9314bb5c479, type: 3}
-  _fSpeed: 0.1
+  gameOverUI: {fileID: 0}
+  _energy: {fileID: 0}
+  _shield: {fileID: 0}
+  _bonus: {fileID: 0}
+  _fSpeed: 0.05
   _rcsThrust: 50
-  _mainThrust: 125
+  _mainThrust: 100
   _invokeTime: 2
   _mainEngine: {fileID: 8300000, guid: 717f2dee8f9508749bfaa8099d323eaf, type: 3}
   _deathExplosion: {fileID: 8300000, guid: 8da7b58b5b186954d824000d6411d36e, type: 3}
@@ -392,10 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87689609119e844da8807aeb0da044e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftController: {fileID: 0}
-  _rightController: {fileID: 0}
-  _movementSpeed: 3
-  _rotationSpeed: 1
+  _movementSpeed: 2
+  _rotationSpeed: 1.5
 --- !u!1 &6088839664208036343
 GameObject:
   m_ObjectHideFlags: 0

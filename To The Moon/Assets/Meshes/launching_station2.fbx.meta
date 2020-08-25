@@ -1,9 +1,39 @@
 fileFormatVersion: 2
-guid: 849a44f2427281941ad5d4865993928c
+guid: d6f0f779b98aac04a959f2f4a90fc8fc
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: c42ecba32303b3f45a80e300cd088060, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlatformConcrete
+    second: {fileID: 2100000, guid: daa94914e095a7d4183253bc035be827, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlatformGreen
+    second: {fileID: 2100000, guid: c90d208985ea8c9459e2f8a2a3faa88d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlatformLegs
+    second: {fileID: 2100000, guid: 4e6ba891edae84b44b01298900722632, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red
+    second: {fileID: 2100000, guid: 735914a03ba54a747b1f9f2ffffe415c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 31ffebbd3d2308b4cb39c86ad72098d9, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +64,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 20
+    globalScale: 0.6
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -81,7 +111,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.19999999
+    globalScale: 0.6
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

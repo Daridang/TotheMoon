@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using System.Collections;
 
 public class SwipeManager : MonoBehaviour
 {
@@ -16,14 +17,15 @@ public class SwipeManager : MonoBehaviour
     [Tooltip("Whether to detect eight or four cardinal directions")]
     [SerializeField] bool useEightDirections = false;
 
-    [SerializeField] private GameObject[] _gameObjects;
     [Range(5, 50)]
     [SerializeField] private int _distanceBetweenObjects;
     [SerializeField] private TextMeshProUGUI _rocketName;
     [SerializeField] private TextMeshProUGUI _price;
+    [SerializeField] private float _itemMovementSpeed = 3f;
 
     #endregion
 
+    private GameObject[] _gameObjects;
     private int _currentObject;
     private bool _isSwipeLeft = false;
     private bool _isSwipeRight = false;
@@ -79,7 +81,11 @@ public class SwipeManager : MonoBehaviour
         instance = this;
         float dpi = (Screen.dpi == 0) ? defaultDPI : Screen.dpi;
         dpcm = dpi / dpcmFactor;
-        
+        _gameObjects = new GameObject[GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length];
+        for(int i = 0; i < GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length; i++)
+        {
+            _gameObjects[i] = Instantiate(GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs[i]);
+        }
         _currentObject = 0;
         _gameObjects[_currentObject].transform.position = new Vector3();
 
@@ -93,8 +99,56 @@ public class SwipeManager : MonoBehaviour
 
     private void Start()
     {
-        _rocketName.text = _gameObjects[0].GetComponent<StoreItem>().Name;
+        _rocketName.text = _gameObjects[0].gameObject.name;
         _price.text = _gameObjects[0].GetComponent<StoreItem>().Price.ToString();
+    }
+
+    private IEnumerator MoveItem(Vector3 from, Vector3 to, float time, GameObject obj)
+    {
+        float counter = 0;
+        Vector3 start = from;
+
+        while(counter < time)
+        {
+            counter += Time.deltaTime * _itemMovementSpeed;
+            from = Vector3.Lerp(start, to, counter);
+            obj.transform.position = from;
+            yield return null;
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if(_currentObject < _gameObjects.Length - 1)
+        {
+            for(int i = 0; i < _gameObjects.Length; i++)
+            {
+                float max = _gameObjects[i].transform.position.x - _distanceBetweenObjects;
+                StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
+            }
+            _isSwipeLeft = false;
+            _currentObject++;
+
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+        }
+    }
+
+    public void MoveRight()
+    {
+        if(_currentObject > 0)
+        {
+            for(int i = 0; i < _gameObjects.Length; i++)
+            {
+                float max = _gameObjects[i].transform.position.x + _distanceBetweenObjects;
+                StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
+            }
+            _isSwipeRight = false;
+            _currentObject--;
+
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+        }
     }
 
     void Update()
@@ -126,32 +180,12 @@ public class SwipeManager : MonoBehaviour
 
         if(_isSwipeLeft)
         {
-            for(int i = 0; i < _gameObjects.Length; i++)
-            {
-                float max = _gameObjects[i].transform.position.x - _distanceBetweenObjects;
-                _gameObjects[i].transform.position = new Vector3(max, 0, 0);
-                _isSwipeLeft = false;
-            }
-
-            _currentObject++;
-
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+            MoveLeft();
         }
 
         if(_isSwipeRight)
         {
-            for(int i = 0; i < _gameObjects.Length; i++)
-            {
-                float max = _gameObjects[i].transform.position.x + _distanceBetweenObjects;
-                _gameObjects[i].transform.position = new Vector3(max, 0, 0);
-                _isSwipeRight = false;
-            }
-
-            _currentObject--;
-
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+            MoveRight();
         }
     }
 
