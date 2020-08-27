@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 579581415430987809}
   - component: {fileID: 579581415430987811}
   - component: {fileID: 579581415430987808}
+  - component: {fileID: 2023128810167485737}
   m_Layer: 0
   m_Name: LowPolyRocket2
   m_TagString: Player
@@ -28,13 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8875182183088961732}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3470767108139086049
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -207,17 +208,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb278a4c2f659445827645de2c389b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 2475230995381736446, guid: ee7d2fe86aa34d94a951581eca26e5e1,
-    type: 3}
-  _energy: {fileID: 0}
-  _shield: {fileID: 0}
-  _bonus: {fileID: 0}
-  _fSpeed: 0.1
-  _rcsThrust: 50
-  _mainThrust: 125
+  _rocketData: {fileID: 11400000, guid: 5c18de7592dd18e409d7effec1e204a8, type: 2}
   _invokeTime: 2
-  _mainEngine: {fileID: 0}
-  _deathExplosion: {fileID: 0}
-  _landing: {fileID: 0}
+  _mainEngine: {fileID: 8300000, guid: 717f2dee8f9508749bfaa8099d323eaf, type: 3}
+  _deathExplosion: {fileID: 8300000, guid: 8da7b58b5b186954d824000d6411d36e, type: 3}
+  _landing: {fileID: 8300000, guid: 9e5f1b48cc8ec1a47b7d0494d0a1fc10, type: 3}
+  _audioSource: {fileID: 579581415430987811}
   engine: {fileID: 198598745608626540, guid: 1b85934f3ab9f88409e04178ece71a05, type: 3}
   explode: {fileID: 198799667656002238, guid: fba3984b4d1739047b5b3e699ebda36a, type: 3}
+--- !u!136 &2023128810167485737
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8875182183088961732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.14081597
+  m_Height: 0.14201255
+  m_Direction: 1
+  m_Center: {x: -0.0012139082, y: -0.00017389655, z: 0.06335227}

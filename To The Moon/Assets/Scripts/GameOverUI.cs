@@ -7,6 +7,6 @@ public class GameOverUI : MonoBehaviour {
     }
 
     public void Retry() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 1f);
     }
 }

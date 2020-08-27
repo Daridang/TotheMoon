@@ -327,9 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ff3cf4a9e9df641921de8480b9c268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rocketType: 0
-  _price: 5
-  _name: Type1
+  _rocketData: {fileID: 11400000, guid: cb088a77ca427284fb5b87bc4d485de7, type: 2}
 --- !u!1 &6700626987719050232
 GameObject:
   m_ObjectHideFlags: 0

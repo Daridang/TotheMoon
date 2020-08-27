@@ -5,11 +5,8 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameObject _hud;
 
-    private void Start()
-    {
-        
-    }
-
+    public GameObject Hud { get => _hud; set => _hud = value; }
+    
     public void Play()
     {
         SoundManager.Instance.PlayClickedSound();
@@ -21,7 +18,7 @@ public class MainMenu : MonoBehaviour
     {
         SoundManager.Instance.PlayClickedSound();
         Initiate.Fade("Shop", Color.black, 1f);
-        UIManager.Instance.MainMenu(false);
+        UIManager.Instance.ShowShopUI();
     }
 
     public void Settings()

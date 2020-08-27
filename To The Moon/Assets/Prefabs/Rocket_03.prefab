@@ -93,6 +93,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ff3cf4a9e9df641921de8480b9c268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rocketType: 2
-  _price: 25
-  _name: Type3
+  _rocketData: {fileID: 11400000, guid: 86b1518014dab5249a608dcb64f2b9d7, type: 2}

@@ -127,6 +127,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2475230994044044595, guid: f0004d014e270c44daa7c829229c685c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475230994044044595, guid: f0004d014e270c44daa7c829229c685c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Retry
+      objectReference: {fileID: 0}
     - target: {fileID: 5897730885850835441, guid: f0004d014e270c44daa7c829229c685c,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -25,9 +25,8 @@ public class SimpleTouchController : MonoBehaviour {
 	{
 		TouchPresent = true;
         Debug.Log("Begin Drag: " + TouchPresent);
-        if(TouchStateEvent != null)
-			TouchStateEvent(TouchPresent);
-	}
+        TouchStateEvent?.Invoke(TouchPresent);
+    }
 
 	public void EndDrag()
 	{
@@ -35,10 +34,9 @@ public class SimpleTouchController : MonoBehaviour {
         Debug.Log("End Drag: " + TouchPresent);
         movementVector = joystickArea.anchoredPosition = Vector2.zero;
 
-		if(TouchStateEvent != null)
-			TouchStateEvent(TouchPresent);
+        TouchStateEvent?.Invoke(TouchPresent);
 
-	}
+    }
 
 	public void OnValueChanged(Vector2 value)
 	{
@@ -48,11 +46,8 @@ public class SimpleTouchController : MonoBehaviour {
 			movementVector.x = ((1 - value.x) - 0.5f) * 2f;
 			movementVector.y = ((1 - value.y) - 0.5f) * 2f;
 
-			if(TouchEvent != null)
-			{
-				TouchEvent(movementVector);
-			}
-		}
+            TouchEvent?.Invoke(movementVector);
+        }
 
 	}
 

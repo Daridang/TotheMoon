@@ -5,19 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private Rocket _rocket;
-    private Rocket rocket;
-
-    public GameObject[] systemPrefabs;
-
-    private List<GameObject> _instancedSystemPrefabs;
-
     private string _currentLevelName = string.Empty;
-
-    private void OnEnable()
-    {
-        
-    }
+    private int currentSceneIndex;
 
     public string GetLevelName()
     {
@@ -28,41 +17,54 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        _instancedSystemPrefabs = new List<GameObject>();
-        InstantiateSystemPrefabs();
+    }
+
+    public void GameOver()
+    {
+        UIManager.Instance.HideHUD();
+        UIManager.Instance.ShowGameOver();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //rocket = Instantiate(_rocket, _rocket.transform.localPosition, _rocket.transform.rotation);
+        if(!scene.name.Equals("Main") && !scene.name.Equals("Shop"))
+        {
+            UIManager.Instance.ToggleHUD(true);
+            UIManager.Instance.ToggleGameOverUI(false);
+            UIManager.Instance.ShowLevelCount();
+            UIManager.Instance.EnergyProgress.fillAmount = 1f;
+            int selectedRocketIndex = PlayerPrefs.GetInt("SelectedRocketIndex", 0);
+            // TODO find launching pad position in scene, instantiate rocket object at it.
+            GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
+            GameObject rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
+        }
 
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
     }
 
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        //for(int i = 0; i < _instancedSystemPrefabs.Count; i++)
-        //{
-        //    Destroy(_instancedSystemPrefabs[i]);
-        //}
-        //_instancedSystemPrefabs.Clear();
-    }
-
-    private void InstantiateSystemPrefabs()
-    {
-        GameObject prefabInstance;
-        for(int i = 0; i < systemPrefabs.Length; i++)
-        {
-            prefabInstance = Instantiate(systemPrefabs[i]);
-            _instancedSystemPrefabs.Add(prefabInstance);
-        }
-    }
-
     public void LoadLevel()
     {
         Initiate.Fade("Level1", Color.black, 1f);
+    }
+
+    public void LoadLevelBegin()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void LoadNextScene()
+    {
+        PlayerPrefs.SetInt("StarBonus", UIManager.Instance.BonusCount);
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        ++currentSceneIndex;
+        
+        if(currentSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            currentSceneIndex = 0;
+        }
+
+        Initiate.Fade("Level" + currentSceneIndex, Color.black, 1f);
     }
 
     private void OnDisable()

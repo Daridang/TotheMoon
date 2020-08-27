@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-using System;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Rocket : MonoBehaviour
 {
     enum State
@@ -12,21 +10,13 @@ public class Rocket : MonoBehaviour
     }
 
     State state = State.Alive;
-    private int currentSceneIndex;
     private bool _isSaveToLand = false;
-    private int _bonusCount = 0;
 
     private Rigidbody _rigidBody;
+    private SimpleTouchController _leftController;
+    private SimpleTouchController _rightController;
 
-    [SerializeField] private GameObject gameOverUI;
-
-    [SerializeField] private Image _energy;
-    [SerializeField] private Image _shield;
-    [SerializeField] private TextMeshProUGUI _bonus;
-    [SerializeField] private float _fuelBurnSpeed = 0.05f;
-
-    [SerializeField] private float _rcsThrust = 50f;
-    [SerializeField] private float _mainThrust = 125f;
+    [SerializeField] private RocketData _rocketData;
     [SerializeField] private float _invokeTime = 2f;
     [SerializeField] private AudioClip _mainEngine;
     [SerializeField] private AudioClip _deathExplosion;
@@ -36,33 +26,31 @@ public class Rocket : MonoBehaviour
     [SerializeField] private ParticleSystem engine;
     [SerializeField] private ParticleSystem explode;
 
-
-    [SerializeField] private bool IsGrounded { get; set; }
+    [SerializeField] private bool IsGrounded { get; set; } = false;
+    public RocketData RocketData { get => _rocketData; set => _rocketData = value; }
 
     private void OnEnable()
     {
-        Timer.OnTimeEnded += SetStatusDying;
         GameEvents.Instance.onCollectableFound += OnCollectableFound;
     }
 
     private void OnDisable()
     {
-        Timer.OnTimeEnded -= SetStatusDying;
         GameEvents.Instance.onCollectableFound -= OnCollectableFound;
     }
 
     private void OnCollectableFound()
     {
         SoundManager.Instance.PlayCollectingSound(gameObject.transform.position);
-        _energy.fillAmount += 1f;
+        UIManager.Instance.EnergyProgress.fillAmount += 1f;
     }
 
     private void Awake()
     {
-        _bonusCount = PlayerPrefs.GetInt("StarBonus", 0);
-        _bonus.text = _bonusCount.ToString();
         _rigidBody = GetComponent<Rigidbody>();
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        _leftController = GameObject.FindGameObjectWithTag("LeftTouch").GetComponent<SimpleTouchController>();
+        _rightController = GameObject.FindGameObjectWithTag("RightTouch").GetComponent<SimpleTouchController>();
+        FindObjectOfType<Camera>().GetComponent<Follow>().target = gameObject.transform;
     }
 
     void Update()
@@ -72,8 +60,8 @@ public class Rocket : MonoBehaviour
             ProcessInput();
             RaycastHit hit;
             Debug.DrawRay(
-                transform.position, 
-                transform.TransformDirection(Vector3.down) * 0.7f, 
+                transform.position,
+                transform.TransformDirection(Vector3.down) * 0.7f,
                 Color.yellow);
 
             // Does the ray intersect any objects excluding the player layer
@@ -81,6 +69,12 @@ public class Rocket : MonoBehaviour
             {
                 Debug.Log("Did Hit");
             }
+        }
+
+        if(state == State.Dying)
+        {
+            _audioSource.Stop();
+            GameManager.Instance.GameOver();
         }
     }
 
@@ -94,20 +88,18 @@ public class Rocket : MonoBehaviour
 
             case "Fuel":
                 GameEvents.Instance.CollectableFound();
-                //SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
                 Destroy(other.gameObject);
-                //_energy.fillAmount += 1f;
                 break;
             case "StarBonus":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
                 Destroy(other.gameObject);
-                _bonusCount += 1;
-                _bonus.text = _bonusCount.ToString();
+                UIManager.Instance.BonusCount += 1;
+                UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
                 break;
             case "Shield":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
                 Destroy(other.gameObject);
-                _shield.fillAmount += 1f;
+                UIManager.Instance.ShieldProgress.fillAmount += 1f;
                 break;
             default:
                 break;
@@ -139,22 +131,22 @@ public class Rocket : MonoBehaviour
         state = State.Transcending;
         _audioSource.Stop();
         _audioSource.PlayOneShot(_landing);
-        Invoke("LoadNextScene", _invokeTime);
+        GameManager.Instance.LoadNextScene();
     }
 
     private void ReactOnObstacle()
     {
-        if(_shield.fillAmount <= float.Epsilon)
+        if(UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
         {
             state = State.Dying;
             _audioSource.Stop();
             _audioSource.PlayOneShot(_deathExplosion);
             explode.Play();
-            gameOverUI.SetActive(true);
+            GameManager.Instance.GameOver();
         }
         else
         {
-            _shield.fillAmount -= 0.2f;
+            UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
         }
     }
 
@@ -172,128 +164,34 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void SetStatusDying()
-    {
-        state = State.Dying;
-        gameOverUI.SetActive(true);
-    }
-
-    private void LoadLevelBegin()
-    {
-        SceneManager.LoadScene(currentSceneIndex);
-    }
-
-    private void LoadNextScene()
-    {
-        PlayerPrefs.SetInt("StarBonus", _bonusCount);
-        ++currentSceneIndex;
-        if(currentSceneIndex == SceneManager.sceneCountInBuildSettings)
-        {
-            currentSceneIndex = 0;
-        }
-        SceneManager.LoadScene(currentSceneIndex);
-    }
-
     private void ProcessInput()
     {
-        Thrusting();
-        Rotating();
-    }
-
-    private void Rotating()
-    {
-
-        _rigidBody.freezeRotation = true;
-
-        float rotationThisFrame = _rcsThrust * Time.deltaTime;
-
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if(_leftController.TouchPresent)
         {
-            transform.Rotate(Vector3.forward * rotationThisFrame);
-        }
-        else if(Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Rotate(Vector3.back * rotationThisFrame);
-        }
-
-        _rigidBody.freezeRotation = false;
-    }
-
-    private void Thrusting()
-    {
-        if(Input.GetKey(KeyCode.Space))
-        {
-            _rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
-            _energy.fillAmount -= _fuelBurnSpeed * Time.deltaTime;
+            _rigidBody.AddRelativeForce(Vector3.up * _leftController.GetTouchPosition.y * RocketData.MovementSpeed);
             if(!_audioSource.isPlaying)
             {
                 _audioSource.PlayOneShot(_mainEngine);
             }
-            engine.Play();
-        }
-        else
-        {
-            _audioSource.Stop();            
-            engine.Stop();
-        }
-    }
-
-    public void Thursting(bool isPressed)
-    {
-        if(isPressed && state == State.Alive)
-        {
-            _rigidBody.AddRelativeForce(Vector3.up * _mainThrust * Time.deltaTime);
-            _energy.fillAmount -= _fuelBurnSpeed * Time.deltaTime;
-            if(!_audioSource.isPlaying)
+            if(UIManager.Instance.EnergyProgress.fillAmount <= float.Epsilon)
             {
-                _audioSource.PlayOneShot(_mainEngine);
-                engine.Play();
+                state = State.Dying;
+                _audioSource.Stop();
+            }
+            else
+            {
+                UIManager.Instance.EnergyProgress.fillAmount -= RocketData.FuelBurnSpeed * Time.deltaTime;
             }
         }
-        else if(state != State.Alive)
-        {
-            engine.Stop();
-        }
-        else
-        {
-            _audioSource.Stop();
-            engine.Stop();
-        }
+        Quaternion rot = Quaternion.Euler(0f, 0f,
+                transform.localEulerAngles.z + _rightController.GetTouchPosition.x * -RocketData.RotationSpeed);
 
-        if(_energy.fillAmount < float.Epsilon)
-        {
-            state = State.Dying;
-            _audioSource.Stop();
-            gameOverUI.SetActive(true);
-            
-        }
+        _rigidBody.MoveRotation(rot);
     }
 
-    public void RotateLeft(bool isPressed)
+    private void OnDestroy()
     {
-        if(state == State.Alive && isPressed)
-        {
-            _rigidBody.freezeRotation = true;
-
-            float rotationThisFrame = _rcsThrust * Time.deltaTime;
-
-            _rigidBody.transform.Rotate(Vector3.forward * rotationThisFrame);
-
-            _rigidBody.freezeRotation = false;
-        }
-    }
-
-    public void RotateRight(bool isPressed)
-    {
-        if(state == State.Alive && isPressed)
-        {
-            _rigidBody.freezeRotation = true;
-
-            float rotationThisFrame = _rcsThrust * Time.deltaTime;
-
-            _rigidBody.transform.Rotate(Vector3.back * rotationThisFrame);
-
-            _rigidBody.freezeRotation = false;
-        }
+        _leftController.EndDrag();
+        _rightController.EndDrag();
     }
 }

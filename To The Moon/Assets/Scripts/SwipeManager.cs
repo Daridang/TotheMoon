@@ -81,6 +81,7 @@ public class SwipeManager : MonoBehaviour
         instance = this;
         float dpi = (Screen.dpi == 0) ? defaultDPI : Screen.dpi;
         dpcm = dpi / dpcmFactor;
+
         _gameObjects = new GameObject[GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length];
         for(int i = 0; i < GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length; i++)
         {
@@ -99,8 +100,8 @@ public class SwipeManager : MonoBehaviour
 
     private void Start()
     {
-        _rocketName.text = _gameObjects[0].gameObject.name;
-        _price.text = _gameObjects[0].GetComponent<StoreItem>().Price.ToString();
+        _rocketName.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Name;
+        _price.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Price.ToString();
     }
 
     private IEnumerator MoveItem(Vector3 from, Vector3 to, float time, GameObject obj)
@@ -117,6 +118,22 @@ public class SwipeManager : MonoBehaviour
         }
     }
 
+    public void Buy()
+    {
+        int starBonusCount = 999; //PlayerPrefs.GetInt("StarBonus", 0);
+        if(starBonusCount < _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price)
+        {
+            Debug.Log("Show UI panel not enough stars or something like that.");
+        }
+        else
+        {
+            int starsLeft = starBonusCount - _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price;
+            PlayerPrefs.SetInt("StarBonus", starsLeft);
+            _price.text = "Select";
+            PlayerPrefs.SetInt("SelectedRocketIndex", _currentObject);
+        }
+    }
+
     public void MoveLeft()
     {
         if(_currentObject < _gameObjects.Length - 1)
@@ -129,8 +146,8 @@ public class SwipeManager : MonoBehaviour
             _isSwipeLeft = false;
             _currentObject++;
 
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
         }
     }
 
@@ -146,8 +163,8 @@ public class SwipeManager : MonoBehaviour
             _isSwipeRight = false;
             _currentObject--;
 
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().Price.ToString();
+            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
         }
     }
 

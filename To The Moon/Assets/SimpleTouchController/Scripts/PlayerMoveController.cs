@@ -25,11 +25,11 @@ public class PlayerMoveController : MonoBehaviour
 	{
         if(_leftController.TouchPresent)
         {
-            _rocket.Thursting(true);
+            //_rocket.Thursting(true);
         }
         else
         {
-            _rocket.Thursting(false);
+            //_rocket.Thursting(false);
         }
 		//_rigidbody.MovePosition(
   //          transform.position + 

@@ -197,7 +197,6 @@ GameObject:
   - component: {fileID: 568889774}
   - component: {fileID: 568889775}
   - component: {fileID: 1819603118953398711}
-  - component: {fileID: 7652808028280583552}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -255,13 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb278a4c2f659445827645de2c389b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 0}
-  _energy: {fileID: 0}
-  _shield: {fileID: 0}
-  _bonus: {fileID: 0}
-  _fSpeed: 0.05
-  _rcsThrust: 50
-  _mainThrust: 100
+  _rocketData: {fileID: 11400000, guid: cb088a77ca427284fb5b87bc4d485de7, type: 2}
   _invokeTime: 2
   _mainEngine: {fileID: 8300000, guid: 717f2dee8f9508749bfaa8099d323eaf, type: 3}
   _deathExplosion: {fileID: 8300000, guid: 8da7b58b5b186954d824000d6411d36e, type: 3}
@@ -379,20 +372,6 @@ CapsuleCollider:
   m_Height: 1.86
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7652808028280583552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6088839664077781907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c87689609119e844da8807aeb0da044e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementSpeed: 2
-  _rotationSpeed: 1.5
 --- !u!1 &6088839664208036343
 GameObject:
   m_ObjectHideFlags: 0
