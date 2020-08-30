@@ -18,3 +18,5 @@ MonoBehaviour:
   _fuelBurnSpeed: 0.2
   _movementSpeed: 15
   _rotationSpeed: 5
+  _isUnlocked: 0
+  _isSelected: 0

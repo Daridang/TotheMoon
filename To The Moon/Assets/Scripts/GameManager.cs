@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     private string _currentLevelName = string.Empty;
     private int currentSceneIndex;
+
+    public int StarsInCurrentLevel { get; set; }
 
     public string GetLevelName()
     {
@@ -25,37 +25,42 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.ShowGameOver();
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void LoadMainMenu()
     {
-        if(!scene.name.Equals("Main") && !scene.name.Equals("Shop"))
-        {
-            UIManager.Instance.ToggleHUD(true);
-            UIManager.Instance.ToggleGameOverUI(false);
-            UIManager.Instance.ShowLevelCount();
-            UIManager.Instance.EnergyProgress.fillAmount = 1f;
-            int selectedRocketIndex = PlayerPrefs.GetInt("SelectedRocketIndex", 0);
-            // TODO find launching pad position in scene, instantiate rocket object at it.
-            GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
-            GameObject rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
-        }
-
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        UIManager.Instance.LoadMainMenuScene();
     }
 
-    public void LoadLevel()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Initiate.Fade("Level1", Color.black, 1f);
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if(!scene.name.Equals("Main") && !scene.name.Equals("Shop") && !scene.name.Equals("SelectLevel"))
+        {
+            StarsInCurrentLevel = 0;
+            UIManager.Instance.ToggleHUD(true);
+            UIManager.Instance.HideGameOver();
+            UIManager.Instance.ShowLevelCount();
+            UIManager.Instance.EnergyProgress.fillAmount = 1f;
+            int selectedRocketIndex = DataManager.Instance.SelectedRocketIndex;
+            GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
+            r.transform.localPosition = new Vector3(0f, 1f, 0);
+            GameObject rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
+        }
+    }
+
+    public void LoadLevel(int level = 1)
+    {
+        SceneManager.LoadScene("Level" + level);
     }
 
     public void LoadLevelBegin()
     {
+        UIManager.Instance.HideLevelComplete();
         SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void LoadNextScene()
     {
-        PlayerPrefs.SetInt("StarBonus", UIManager.Instance.BonusCount);
+        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         ++currentSceneIndex;
         
@@ -64,7 +69,8 @@ public class GameManager : Singleton<GameManager>
             currentSceneIndex = 0;
         }
 
-        Initiate.Fade("Level" + currentSceneIndex, Color.black, 1f);
+        UIManager.Instance.HideLevelComplete();
+        SceneManager.LoadScene("Level" + currentSceneIndex);
     }
 
     private void OnDisable()

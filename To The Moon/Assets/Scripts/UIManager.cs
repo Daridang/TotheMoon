@@ -11,7 +11,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Image _shieldProgress;
     [SerializeField] private TextMeshProUGUI _starBonus;
     [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private TextMeshProUGUI _currentLevelStars;
     [SerializeField] private GameObject _gameOverUI;
+    [SerializeField] private GameObject _levelComplete;
 
     public Image EnergyProgress { get => _energyProgress; set => _energyProgress = value; }
     public Image ShieldProgress { get => _shieldProgress; set => _shieldProgress = value; }
@@ -26,6 +28,40 @@ public class UIManager : Singleton<UIManager>
         DontDestroyOnLoad(gameObject);
     }
 
+    public void DoubleReward()
+    {
+        GameManager.Instance.StarsInCurrentLevel *= 2;
+        DataManager.Instance.StarBonus += GameManager.Instance.StarsInCurrentLevel;
+        StarBonus.text = DataManager.Instance.StarBonus.ToString();
+        _currentLevelStars.text = "x " + GameManager.Instance.StarsInCurrentLevel;
+        GameManager.Instance.LoadNextScene();
+    }
+
+    public void ShowLevelComplete()
+    {
+        _levelComplete.SetActive(true);
+        _currentLevelStars.text = "x " + GameManager.Instance.StarsInCurrentLevel;
+    }
+
+    public void HideLevelComplete()
+    {
+        _levelComplete.SetActive(false);
+    }
+
+    public void OnLevelComplete()
+    {
+        _levelComplete.SetActive(true);
+    }
+
+    public void LoadMainMenuScene()
+    {
+        _levelComplete.SetActive(false);
+        _mainMenu.Hud.SetActive(false);
+        _gameOverUI.SetActive(false);
+        SceneManager.LoadScene("Main");
+        _mainMenu.gameObject.SetActive(true);
+    }
+
     public void MainMenu(bool show)
     {
         _mainMenu.gameObject.SetActive(show);
@@ -34,7 +70,7 @@ public class UIManager : Singleton<UIManager>
     public void ToggleHUD(bool isEnable)
     {
         _mainMenu.Hud.SetActive(isEnable);
-        BonusCount = PlayerPrefs.GetInt("StarBonus", 0);
+        BonusCount = DataManager.Instance.StarBonus;
         _starBonus.text = BonusCount.ToString();
     }
 
@@ -44,9 +80,9 @@ public class UIManager : Singleton<UIManager>
         LevelText.text = "Level " + (SceneManager.GetActiveScene().buildIndex).ToString();
     }
 
-    public void ToggleGameOverUI(bool b)
+    public void HideGameOver()
     {
-        _gameOverUI.SetActive(b);
+        _gameOverUI.SetActive(false);
     }
 
     public void Quit()

@@ -23,8 +23,8 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip _landing;
     [SerializeField] private AudioSource _audioSource;
 
-    [SerializeField] private ParticleSystem engine;
-    [SerializeField] private ParticleSystem explode;
+    [SerializeField] private ParticleSystem _engine;
+    [SerializeField] private ParticleSystem _explode;
 
     [SerializeField] private bool IsGrounded { get; set; } = false;
     public RocketData RocketData { get => _rocketData; set => _rocketData = value; }
@@ -95,6 +95,7 @@ public class Rocket : MonoBehaviour
                 Destroy(other.gameObject);
                 UIManager.Instance.BonusCount += 1;
                 UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
+                GameManager.Instance.StarsInCurrentLevel += 1;
                 break;
             case "Shield":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
@@ -131,7 +132,11 @@ public class Rocket : MonoBehaviour
         state = State.Transcending;
         _audioSource.Stop();
         _audioSource.PlayOneShot(_landing);
-        GameManager.Instance.LoadNextScene();
+        UIManager.Instance.ShowLevelComplete();
+        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        currentBuildIndex++;
+        DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
+        //GameManager.Instance.LoadNextScene();
     }
 
     private void ReactOnObstacle()
@@ -141,7 +146,7 @@ public class Rocket : MonoBehaviour
             state = State.Dying;
             _audioSource.Stop();
             _audioSource.PlayOneShot(_deathExplosion);
-            explode.Play();
+            _explode.Play();
             GameManager.Instance.GameOver();
         }
         else
@@ -172,6 +177,7 @@ public class Rocket : MonoBehaviour
             if(!_audioSource.isPlaying)
             {
                 _audioSource.PlayOneShot(_mainEngine);
+                _engine.Play();
             }
             if(UIManager.Instance.EnergyProgress.fillAmount <= float.Epsilon)
             {
@@ -182,6 +188,11 @@ public class Rocket : MonoBehaviour
             {
                 UIManager.Instance.EnergyProgress.fillAmount -= RocketData.FuelBurnSpeed * Time.deltaTime;
             }
+        }
+        else
+        {
+            _audioSource.Stop();
+            _engine.Stop();
         }
         Quaternion rot = Quaternion.Euler(0f, 0f,
                 transform.localEulerAngles.z + _rightController.GetTouchPosition.x * -RocketData.RotationSpeed);

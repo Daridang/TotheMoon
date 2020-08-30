@@ -57,10 +57,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rocketPrefabs:
-  - {fileID: 6700626987589056924, guid: ee585a43cea492848a5c0a3f9e17cfbb, type: 3}
+  - {fileID: 5374014312423369424, guid: ee585a43cea492848a5c0a3f9e17cfbb, type: 3}
   - {fileID: 7041054189855898286, guid: f57d07869dd33cd4ea283c427073b8b5, type: 3}
-  - {fileID: 932578061725340393, guid: e503262ace72a3b4d85c85b5b8d52650, type: 3}
+  - {fileID: 104934149256608104, guid: e503262ace72a3b4d85c85b5b8d52650, type: 3}
   _playerRocketPrefabs:
-  - {fileID: 6088839664077781907, guid: aef2ac6f5cbc6ce48862d9a1b10791a0, type: 3}
+  - {fileID: 863146426036544247, guid: b768f7a64b2fec44e979246520134f19, type: 3}
   - {fileID: 2121916417608267446, guid: ce00e741caab2e04e8537c16df3eb119, type: 3}
-  - {fileID: 8875182183088961732, guid: cb24a72243c568246afe45d7081ddc92, type: 3}
+  - {fileID: 7067930671228679603, guid: a05b8f0457415824c9cd7787dda44fbe, type: 3}

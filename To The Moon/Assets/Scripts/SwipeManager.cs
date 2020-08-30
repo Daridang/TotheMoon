@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SwipeManager : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class SwipeManager : MonoBehaviour
     [SerializeField] private int _distanceBetweenObjects;
     [SerializeField] private TextMeshProUGUI _rocketName;
     [SerializeField] private TextMeshProUGUI _price;
+    [SerializeField] private GameObject _leftArrow;
+    [SerializeField] private GameObject _rightArrow;
+    [SerializeField] private GameObject _buyButton;
+    [SerializeField] private GameObject _selectButton;
+    [SerializeField] private GameObject _notEnoughStarsPanel;
+    [SerializeField] private TextMeshProUGUI _selectBtnText;
+    [SerializeField] private Text _unlockText;
     [SerializeField] private float _itemMovementSpeed = 3f;
 
     #endregion
@@ -29,6 +37,7 @@ public class SwipeManager : MonoBehaviour
     private int _currentObject;
     private bool _isSwipeLeft = false;
     private bool _isSwipeRight = false;
+    private bool _isSwipeDisabled = false;
 
     const float eightDirAngle = 0.906f;
     const float fourDirAngle = 0.5f;
@@ -102,6 +111,8 @@ public class SwipeManager : MonoBehaviour
     {
         _rocketName.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Name;
         _price.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Price.ToString();
+        _leftArrow.SetActive(false);
+        UpdateShopUI();
     }
 
     private IEnumerator MoveItem(Vector3 from, Vector3 to, float time, GameObject obj)
@@ -120,89 +131,166 @@ public class SwipeManager : MonoBehaviour
 
     public void Buy()
     {
-        int starBonusCount = 999; //PlayerPrefs.GetInt("StarBonus", 0);
+        int starBonusCount = DataManager.Instance.StarBonus;
         if(starBonusCount < _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price)
         {
-            Debug.Log("Show UI panel not enough stars or something like that.");
+            _notEnoughStarsPanel.SetActive(true);
+            _isSwipeDisabled = true;
+            _gameObjects[_currentObject].SetActive(false);
         }
         else
         {
             int starsLeft = starBonusCount - _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price;
-            PlayerPrefs.SetInt("StarBonus", starsLeft);
-            _price.text = "Select";
-            PlayerPrefs.SetInt("SelectedRocketIndex", _currentObject);
+            DataManager.Instance.StarBonus = starsLeft;
+            
+            DataManager.Instance.SetUnlocked(_gameObjects[_currentObject].name);
+            UpdateShopUI();
+        }
+    }
+
+    public void CloseWarningPanel()
+    {
+        _notEnoughStarsPanel.SetActive(false);
+        _isSwipeDisabled = false;
+        _gameObjects[_currentObject].SetActive(true);
+    }
+
+    public void Select()
+    {
+        foreach(GameObject g in _gameObjects)
+        {
+            g.GetComponent<StoreItem>().RocketData.IsSelected = false;
+            UpdateShopUI();
+        }
+        _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.IsSelected = true;
+        _selectBtnText.text = "Ready";
+        UpdateShopUI();
+        DataManager.Instance.SelectedRocketIndex = _currentObject;
+    }
+
+    private void Arrows()
+    {
+        if(_currentObject == 0)
+        {
+            _leftArrow.SetActive(false);
+        }
+        else
+        {
+            _leftArrow.SetActive(true);
+        }
+
+        if(_currentObject == _gameObjects.Length - 1)
+        {
+            _rightArrow.SetActive(false);
+        }
+        else
+        {
+            _rightArrow.SetActive(true);
+        }
+    }
+
+    private void UpdateShopUI()
+    {
+        if(DataManager.Instance.CheckRocketIsUnlocked(_gameObjects[_currentObject].name) == 1)
+        {
+            _buyButton.SetActive(false);
+            _unlockText.text = "";
+            _selectButton.SetActive(true);
+            if(_gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.IsSelected)
+            {
+                _selectBtnText.text = "Ready";
+            }
+            else
+            {
+                _selectBtnText.text = "Select";
+            }
+        }
+        else
+        {
+            _buyButton.SetActive(true);
+            _selectButton.SetActive(false);
+            _unlockText.text = "Unlock";
+            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
         }
     }
 
     public void MoveLeft()
     {
-        if(_currentObject < _gameObjects.Length - 1)
+        if(!_isSwipeDisabled)
         {
-            for(int i = 0; i < _gameObjects.Length; i++)
+            if(_currentObject < _gameObjects.Length - 1)
             {
-                float max = _gameObjects[i].transform.position.x - _distanceBetweenObjects;
-                StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
-            }
-            _isSwipeLeft = false;
-            _currentObject++;
+                for(int i = 0; i < _gameObjects.Length; i++)
+                {
+                    float max = _gameObjects[i].transform.position.x - _distanceBetweenObjects;
+                    StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
+                }
+                _isSwipeLeft = false;
+                _currentObject++;
 
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+                _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
+                _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+            }
+            Arrows();
+            UpdateShopUI();
         }
     }
 
     public void MoveRight()
     {
-        if(_currentObject > 0)
+        if(!_isSwipeDisabled)
         {
-            for(int i = 0; i < _gameObjects.Length; i++)
+            if(_currentObject > 0)
             {
-                float max = _gameObjects[i].transform.position.x + _distanceBetweenObjects;
-                StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
-            }
-            _isSwipeRight = false;
-            _currentObject--;
+                for(int i = 0; i < _gameObjects.Length; i++)
+                {
+                    float max = _gameObjects[i].transform.position.x + _distanceBetweenObjects;
+                    StartCoroutine(MoveItem(_gameObjects[i].transform.position, new Vector3(max, 0, 0), 1f, _gameObjects[i]));
+                }
+                _isSwipeRight = false;
+                _currentObject--;
 
-            _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
-            _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+                _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
+                _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+            }
+            Arrows();
+            UpdateShopUI();
         }
     }
 
     void Update()
     {
-        if(autoDetectSwipes)
+        if(!_isSwipeDisabled)
         {
-            DetectSwipe();
-        }
+            if(IsSwipingLeft())
+            {
+                _isSwipeLeft = true;
+            }
 
-        if(IsSwipingLeft())
-        {
-            _isSwipeLeft = true;
-        }
+            if(IsSwipingRight())
+            {
+                _isSwipeRight = true;
+            }
 
-        if(IsSwipingRight())
-        {
-            _isSwipeRight = true;
-        }
+            if(_currentObject == _gameObjects.Length - 1)
+            {
+                _isSwipeLeft = false;
+            }
 
-        if(_currentObject == _gameObjects.Length - 1)
-        {
-            _isSwipeLeft = false;
-        }
+            if(_currentObject == 0)
+            {
+                _isSwipeRight = false;
+            }
 
-        if(_currentObject == 0)
-        {
-            _isSwipeRight = false;
-        }
+            if(_isSwipeLeft)
+            {
+                MoveLeft();
+            }
 
-        if(_isSwipeLeft)
-        {
-            MoveLeft();
-        }
-
-        if(_isSwipeRight)
-        {
-            MoveRight();
+            if(_isSwipeRight)
+            {
+                MoveRight();
+            }
         }
     }
 

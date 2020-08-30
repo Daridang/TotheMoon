@@ -89,6 +89,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2475230995381736440}
     m_Modifications:
+    - target: {fileID: 277856460310917465, guid: 41dc4a3b530a589408208617dcbd1d0b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2475230995381736447}
     - target: {fileID: 4141112969093698596, guid: 41dc4a3b530a589408208617dcbd1d0b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -167,12 +172,12 @@ PrefabInstance:
     - target: {fileID: 4141112970738475306, guid: 41dc4a3b530a589408208617dcbd1d0b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1340.757
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4141112970738475306, guid: 41dc4a3b530a589408208617dcbd1d0b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2458.6553
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4141112970738475306, guid: 41dc4a3b530a589408208617dcbd1d0b,
         type: 3}
