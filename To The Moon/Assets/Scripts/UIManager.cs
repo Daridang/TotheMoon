@@ -34,7 +34,7 @@ public class UIManager : Singleton<UIManager>
         DataManager.Instance.StarBonus += GameManager.Instance.StarsInCurrentLevel;
         StarBonus.text = DataManager.Instance.StarBonus.ToString();
         _currentLevelStars.text = "x " + GameManager.Instance.StarsInCurrentLevel;
-        GameManager.Instance.LoadNextScene();
+        GameManager.Instance.LoadNextSceneWithDoubleReward();
     }
 
     public void ShowLevelComplete()
@@ -57,6 +57,7 @@ public class UIManager : Singleton<UIManager>
     {
         _levelComplete.SetActive(false);
         _mainMenu.Hud.SetActive(false);
+        _mainMenu.GetComponent<MainMenu>().EndlessRunBtnActivation();
         _gameOverUI.SetActive(false);
         SceneManager.LoadScene("Main");
         _mainMenu.gameObject.SetActive(true);

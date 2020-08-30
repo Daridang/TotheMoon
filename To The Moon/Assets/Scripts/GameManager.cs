@@ -65,10 +65,25 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextScene()
     {
-        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
+        DataManager.Instance.StarBonus = UIManager.Instance.BonusCount;
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         ++currentSceneIndex;
         
+        if(currentSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            currentSceneIndex = 0;
+        }
+
+        UIManager.Instance.HideLevelComplete();
+        SceneManager.LoadScene("Level" + currentSceneIndex);
+    }
+
+    public void LoadNextSceneWithDoubleReward()
+    {
+        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        ++currentSceneIndex;
+
         if(currentSceneIndex == SceneManager.sceneCountInBuildSettings)
         {
             currentSceneIndex = 0;

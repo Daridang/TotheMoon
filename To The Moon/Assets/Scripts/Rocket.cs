@@ -116,9 +116,6 @@ public class Rocket : MonoBehaviour
             case "Friendly":
                 IsGrounded = true;
                 break;
-            case "Obstacle":
-                ReactOnObstacle();
-                break;
             case "Finish":
                 Landing();
                 break;
@@ -136,10 +133,9 @@ public class Rocket : MonoBehaviour
         int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
         currentBuildIndex++;
         DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
-        //GameManager.Instance.LoadNextScene();
     }
 
-    private void ReactOnObstacle()
+    public void ReactOnObstacle()
     {
         if(UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
         {

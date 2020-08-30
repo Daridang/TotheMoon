@@ -16,6 +16,11 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
+        EndlessRunBtnActivation();
+    }
+
+    public void EndlessRunBtnActivation()
+    {
         if(DataManager.Instance.CheckLevelIsUnlocked("Level5") == 1)
         {
             _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunEnabled;

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5138634467225018858}
   - component: {fileID: 4182470134982089692}
   - component: {fileID: 7581694553409873701}
+  - component: {fileID: 6152870450841969320}
+  - component: {fileID: 79395660333133296}
   m_Layer: 0
   m_Name: LowPolyCloud
   m_TagString: Untagged
@@ -78,3 +80,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6152870450841969320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145675864081716217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f94bec1d6638d04db35d526b6e18e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _puff: {fileID: 2808591367568062779, guid: 3edb18e5286275647866a37403f1b2d4, type: 3}
+--- !u!135 &79395660333133296
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145675864081716217}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.9077147
+  m_Center: {x: -0.012542605, y: 0.01538992, z: 0.086486466}

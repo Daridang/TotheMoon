@@ -485,7 +485,8 @@ GameObject:
   - component: {fileID: 4037594867893618}
   - component: {fileID: 95119539051081008}
   - component: {fileID: 712597606504243680}
-  - component: {fileID: -2959913421174373494}
+  - component: {fileID: 5873467783922861135}
+  - component: {fileID: 2821319713672244109}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Obstacle
@@ -540,21 +541,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e0de80cb49ef4da7907cb177015c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
---- !u!64 &-2959913421174373494
-MeshCollider:
+  _speed: 4
+  _puff: {fileID: 2808591367568062779, guid: 14324fb191863494b9ed6f0cd282af9d, type: 3}
+--- !u!65 &5873467783922861135
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674130526759142}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: bcf471273cc460644bee464d85b13464, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.8087158, z: 0.83814484}
+  m_Center: {x: -2.618723e-16, y: 0.19864082, z: 0.08092761}
+--- !u!65 &2821319713672244109
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674130526759142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.82343006, z: 1.1471412}
+  m_Center: {x: -2.308053e-15, y: 0.4119954, z: 1.1624146}
 --- !u!1 &1775711469362154
 GameObject:
   m_ObjectHideFlags: 0
