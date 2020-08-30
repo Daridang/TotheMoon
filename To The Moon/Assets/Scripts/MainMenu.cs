@@ -6,7 +6,11 @@ public class MainMenu : MonoBehaviour
 {
 
     [SerializeField] private GameObject _hud;
+    [SerializeField] private GameObject _infoPanel;
     [SerializeField] private Button _endlessRunBtnImage;
+    [SerializeField] private Button _infoButton;
+    [SerializeField] private Sprite _endlessRunEnabled;
+    [SerializeField] private Sprite _endlessRunDisabled;
 
     public GameObject Hud { get => _hud; set => _hud = value; }
 
@@ -14,11 +18,15 @@ public class MainMenu : MonoBehaviour
     {
         if(DataManager.Instance.CheckLevelIsUnlocked("Level5") == 1)
         {
+            _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunEnabled;
             _endlessRunBtnImage.enabled = true;
+            _infoButton.gameObject.SetActive(false);
         }
         else
         {
+            _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunDisabled;
             _endlessRunBtnImage.enabled = false;
+            _infoButton.gameObject.SetActive(true);
         }
     }
 
@@ -61,5 +69,15 @@ public class MainMenu : MonoBehaviour
         // TODO ShareOnFacebook
         SoundManager.Instance.PlayClickedSound();
         //UIManager.Instance.MainMenu(false);
+    }
+
+    public void ShowInfoPanel()
+    {
+        _infoPanel.SetActive(true);
+    }
+
+    public void HideInfoPanel()
+    {
+        _infoPanel.SetActive(false);
     }
 }

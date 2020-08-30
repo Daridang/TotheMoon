@@ -45,6 +45,11 @@ public class GameManager : Singleton<GameManager>
             r.transform.localPosition = new Vector3(0f, 1f, 0);
             GameObject rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
         }
+
+        if(scene.name.Equals("Main"))
+        {
+            UIManager.Instance.HideGameOver();
+        }
     }
 
     public void LoadLevel(int level = 1)
