@@ -15,8 +15,8 @@ MonoBehaviour:
   _name: Rocket Type 2
   _price: 25
   _energyAmount: 1
-  _fuelBurnSpeed: 0.4
-  _movementSpeed: 12
-  _rotationSpeed: 4
+  _fuelBurnSpeed: 0.1
+  _movementSpeed: 3
+  _rotationSpeed: 3
   _isUnlocked: 0
   _isSelected: 0

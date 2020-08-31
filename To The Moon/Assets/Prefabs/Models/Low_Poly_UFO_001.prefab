@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4561758255086755784}
   - component: {fileID: 6076382757354028130}
   - component: {fileID: 676816594}
-  - component: {fileID: 4187113359473849014}
+  - component: {fileID: 1743943016806357237}
   m_Layer: 0
   m_Name: Low_Poly_UFO_001
-  m_TagString: Obstacle
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,8 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d243ad15571f34180dfc768e03c8da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 30
-  rotationAxis: {x: 0, y: 0, z: 0}
+  rotationSpeedX: 0
+  rotationSpeedY: 0
+  rotationSpeedZ: 50
 --- !u!114 &676816594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,17 +111,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
---- !u!64 &4187113359473849014
-MeshCollider:
+  _puff: {fileID: 2808591367568062779, guid: 3edb18e5286275647866a37403f1b2d4, type: 3}
+--- !u!65 &1743943016806357237
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2842414553608022804}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -2504140697205910151, guid: d8930e4c573159641a82a6e6a5550797, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.017386662, y: 0.017386664, z: 0.018266013}
+  m_Center: {x: 0, y: 3.8935233e-15, z: 0.0013607567}

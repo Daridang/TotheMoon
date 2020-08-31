@@ -119,9 +119,17 @@ public class Rocket : MonoBehaviour
             case "Finish":
                 Landing();
                 break;
+            case "Obstacle":
+                ReactOnObstacle();
+                break;
             default:
                 break;
         }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
     }
 
     private void Landing()
@@ -133,6 +141,7 @@ public class Rocket : MonoBehaviour
         int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
         currentBuildIndex++;
         DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
+        DataManager.Instance.LastUnlockedLevel = currentBuildIndex;
     }
 
     public void ReactOnObstacle()
@@ -147,7 +156,7 @@ public class Rocket : MonoBehaviour
         }
         else
         {
-            UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
+            UIManager.Instance.ShieldProgress.fillAmount -= 0.1f;
         }
     }
 

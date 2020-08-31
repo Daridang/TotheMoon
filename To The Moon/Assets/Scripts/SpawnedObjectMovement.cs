@@ -20,6 +20,7 @@ public class SpawnedObjectMovement : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             other.GetComponent<Rocket>().ReactOnObstacle();
+            gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
             ParticleSystem ps = Instantiate(_puff, gameObject.transform);
             ps.Play();
             Destroy(gameObject, 0.5f);

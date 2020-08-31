@@ -14,6 +14,7 @@ TagManager:
   - StarBonus
   - LeftTouch
   - RightTouch
+  - Enemy
   layers:
   - Default
   - TransparentFX

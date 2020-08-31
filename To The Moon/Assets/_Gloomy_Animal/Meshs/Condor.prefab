@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 8693380467304353000}
   m_Layer: 0
   m_Name: Condor
-  m_TagString: Obstacle
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

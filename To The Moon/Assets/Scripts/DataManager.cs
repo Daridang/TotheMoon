@@ -8,6 +8,7 @@ public class DataManager : Singleton<DataManager>
     private RocketsArray _array;
 
     private const string SELECTED_ROCKET_INDEX = "SelectedRocketIndex";
+    private const string LAST_UNLOCKED_LEVEL = "LastUnlockedLevel";
 
     private const string STARBONUS_COUNT = "StarBonusCount";
 
@@ -28,6 +29,7 @@ public class DataManager : Singleton<DataManager>
             PlayerPrefs.SetInt(SELECTED_ROCKET_INDEX, 0);
 
             PlayerPrefs.SetInt(LEVEL_01, 1);
+            PlayerPrefs.SetInt(LAST_UNLOCKED_LEVEL, 1);
 
             PlayerPrefs.SetInt(ROCKET_01, 1);
             PlayerPrefs.SetInt(ROCKET_02, 0);
@@ -76,6 +78,18 @@ public class DataManager : Singleton<DataManager>
         set
         {
             PlayerPrefs.SetInt(SELECTED_ROCKET_INDEX, value);
+        }
+    }
+
+    public int LastUnlockedLevel
+    {
+        get
+        {
+            return PlayerPrefs.GetInt(LAST_UNLOCKED_LEVEL);
+        }
+        set
+        {
+            PlayerPrefs.SetInt(LAST_UNLOCKED_LEVEL, value);
         }
     }
 

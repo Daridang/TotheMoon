@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         SoundManager.Instance.PlayClickedSound();
-        GameManager.Instance.LoadLevel();
+        GameManager.Instance.LoadLevel(DataManager.Instance.LastUnlockedLevel);
         UIManager.Instance.MainMenu(false);
     }
 
@@ -67,6 +67,8 @@ public class MainMenu : MonoBehaviour
     public void Settings()
     {
         SoundManager.Instance.PlayClickedSound();
+
+        AdManager.Instance.ShowRewardedVideo();
     }
 
     public void ShareOnFacebook()

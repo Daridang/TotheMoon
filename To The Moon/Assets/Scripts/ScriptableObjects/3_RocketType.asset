@@ -15,8 +15,8 @@ MonoBehaviour:
   _name: Rocket Type 3
   _price: 35
   _energyAmount: 1
-  _fuelBurnSpeed: 0.2
-  _movementSpeed: 15
-  _rotationSpeed: 5
+  _fuelBurnSpeed: 0.05
+  _movementSpeed: 4
+  _rotationSpeed: 4
   _isUnlocked: 0
   _isSelected: 0
