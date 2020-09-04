@@ -96,7 +96,7 @@ public class DataManager : Singleton<DataManager>
     private SavedGame CreateSaveGameObject()
     {
         SavedGame save = new SavedGame();
-        save.LeveName = GameManager.Instance.GetLevelName();
+        //save.LeveName = GameManager.Instance.GetLevelName();
         //save.StarBonus = UIManager.Instance
         return save;
     }

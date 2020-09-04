@@ -30,11 +30,13 @@ public class UIManager : Singleton<UIManager>
 
     public void DoubleReward()
     {
+        AdManager.Instance.ShowRewardedVideo();
+    }
+
+    public void UpdateUI()
+    {
         GameManager.Instance.StarsInCurrentLevel *= 2;
-        DataManager.Instance.StarBonus += GameManager.Instance.StarsInCurrentLevel;
-        StarBonus.text = DataManager.Instance.StarBonus.ToString();
         _currentLevelStars.text = "x " + GameManager.Instance.StarsInCurrentLevel;
-        GameManager.Instance.LoadNextSceneWithDoubleReward();
     }
 
     public void ShowLevelComplete()
@@ -55,6 +57,7 @@ public class UIManager : Singleton<UIManager>
 
     public void LoadMainMenuScene()
     {
+        DataManager.Instance.StarBonus += GameManager.Instance.StarsInCurrentLevel;
         _levelComplete.SetActive(false);
         _mainMenu.Hud.SetActive(false);
         _mainMenu.GetComponent<MainMenu>().EndlessRunBtnActivation();

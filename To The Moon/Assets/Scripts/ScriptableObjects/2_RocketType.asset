@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60793fc79ea52ff4684b1043f3acec49, type: 3}
   m_Name: 2_RocketType
   m_EditorClassIdentifier: 
-  _name: Rocket Type 2
+  _name: JUPITER SR-139
   _price: 25
   _energyAmount: 1
   _fuelBurnSpeed: 0.1

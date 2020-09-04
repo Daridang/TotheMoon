@@ -7,11 +7,7 @@ public class GameManager : Singleton<GameManager>
     private int currentSceneIndex;
 
     public int StarsInCurrentLevel { get; set; }
-
-    public string GetLevelName()
-    {
-        return SceneManager.GetActiveScene().name;
-    }
+    public int DeathCount { get; set; }
 
     private void Start()
     {
@@ -21,6 +17,8 @@ public class GameManager : Singleton<GameManager>
 
     public void GameOver()
     {
+        StarsInCurrentLevel = 0;
+        DeathCount++;
         UIManager.Instance.HideHUD();
         UIManager.Instance.ShowGameOver();
     }
@@ -57,6 +55,13 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("Level" + level);
     }
 
+    public void ReplayLevel()
+    {
+        DataManager.Instance.StarBonus += StarsInCurrentLevel;
+        LoadLevelBegin();
+        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
+    }
+
     public void LoadLevelBegin()
     {
         UIManager.Instance.HideLevelComplete();
@@ -65,7 +70,8 @@ public class GameManager : Singleton<GameManager>
 
     public void LoadNextScene()
     {
-        DataManager.Instance.StarBonus = UIManager.Instance.BonusCount;
+        DataManager.Instance.StarBonus += StarsInCurrentLevel;
+        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         ++currentSceneIndex;
         
@@ -78,19 +84,21 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("Level" + currentSceneIndex);
     }
 
-    public void LoadNextSceneWithDoubleReward()
+    public void Landed()
     {
-        UIManager.Instance.BonusCount = DataManager.Instance.StarBonus;
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        ++currentSceneIndex;
+        UIManager.Instance.ShowLevelComplete();
+        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        currentBuildIndex++;
+        DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
+        DataManager.Instance.LastUnlockedLevel = currentBuildIndex;
+        DeathCount = 0;
+    }
 
-        if(currentSceneIndex == SceneManager.sceneCountInBuildSettings)
-        {
-            currentSceneIndex = 0;
-        }
-
-        UIManager.Instance.HideLevelComplete();
-        SceneManager.LoadScene("Level" + currentSceneIndex);
+    public void StarBonusFound()
+    {
+        UIManager.Instance.BonusCount += 1;
+        UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
+        GameManager.Instance.StarsInCurrentLevel += 1;
     }
 
     private void OnDisable()

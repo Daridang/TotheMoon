@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60793fc79ea52ff4684b1043f3acec49, type: 3}
   m_Name: 1_RocketType
   m_EditorClassIdentifier: 
-  _name: Rocket Type 1
+  _name: DIA X-1
   _price: 15
   _energyAmount: 1
   _fuelBurnSpeed: 0.1

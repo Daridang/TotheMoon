@@ -70,12 +70,6 @@ public class Rocket : MonoBehaviour
                 Debug.Log("Did Hit");
             }
         }
-
-        if(state == State.Dying)
-        {
-            _audioSource.Stop();
-            GameManager.Instance.GameOver();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -92,10 +86,8 @@ public class Rocket : MonoBehaviour
                 break;
             case "StarBonus":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
+                GameManager.Instance.StarBonusFound();
                 Destroy(other.gameObject);
-                UIManager.Instance.BonusCount += 1;
-                UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
-                GameManager.Instance.StarsInCurrentLevel += 1;
                 break;
             case "Shield":
                 SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
@@ -129,7 +121,10 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
+        if(!collision.collider.CompareTag("Friendly") && !collision.collider.CompareTag("Finish"))
+        {
+            UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
+        }
     }
 
     private void Landing()
@@ -137,11 +132,7 @@ public class Rocket : MonoBehaviour
         state = State.Transcending;
         _audioSource.Stop();
         _audioSource.PlayOneShot(_landing);
-        UIManager.Instance.ShowLevelComplete();
-        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
-        currentBuildIndex++;
-        DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
-        DataManager.Instance.LastUnlockedLevel = currentBuildIndex;
+        GameManager.Instance.Landed();
     }
 
     public void ReactOnObstacle()
@@ -188,6 +179,7 @@ public class Rocket : MonoBehaviour
             {
                 state = State.Dying;
                 _audioSource.Stop();
+                GameManager.Instance.GameOver();
             }
             else
             {

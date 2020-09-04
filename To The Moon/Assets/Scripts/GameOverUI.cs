@@ -1,7 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameOverUI : MonoBehaviour {
+public class GameOverUI : MonoBehaviour
+{
+
+    [SerializeField] private Button _getShieldBtn;
+
+    private void OnEnable()
+    {
+        if(GameManager.Instance.DeathCount >= 3)
+        {
+            _getShieldBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            _getShieldBtn.gameObject.SetActive(false);
+        }
+    }
+
     public void Quit() {
         Application.Quit();
     }

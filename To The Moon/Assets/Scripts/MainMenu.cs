@@ -21,12 +21,18 @@ public class MainMenu : MonoBehaviour
 
     public void EndlessRunBtnActivation()
     {
-        if(DataManager.Instance.CheckLevelIsUnlocked("Level5") == 1)
+        if(PlayerPrefs.HasKey("Level5"))
         {
             _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunEnabled;
             _endlessRunBtnImage.enabled = true;
             _infoButton.gameObject.SetActive(false);
         }
+        //if(DataManager.Instance.CheckLevelIsUnlocked("Level5") == 1)
+        //{
+        //    _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunEnabled;
+        //    _endlessRunBtnImage.enabled = true;
+        //    _infoButton.gameObject.SetActive(false);
+        //}
         else
         {
             _endlessRunBtnImage.GetComponent<Image>().sprite = _endlessRunDisabled;
@@ -67,8 +73,6 @@ public class MainMenu : MonoBehaviour
     public void Settings()
     {
         SoundManager.Instance.PlayClickedSound();
-
-        AdManager.Instance.ShowRewardedVideo();
     }
 
     public void ShareOnFacebook()
