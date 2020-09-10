@@ -11,8 +11,8 @@ public class Follow : MonoBehaviour
     public bool limitBounds = false;
     public float left = -5f;
     public float right = 5f;
-    public float bottom = -5f;
-    public float top = 5f;
+    //public float bottom = -5f;
+    //public float top = 5f;
 
     private Vector3 lerpedPosition;
 
@@ -61,14 +61,14 @@ public class Follow : MonoBehaviour
                     boundPosition.x = left + (screenSize.x / 2f);
                 }
 
-                if(boundPosition.y > top - (screenSize.y / 2f))
-                {
-                    boundPosition.y = top - (screenSize.y / 2f);
-                }
-                if(boundPosition.y < bottom + (screenSize.y / 2f))
-                {
-                    boundPosition.y = bottom + (screenSize.y / 2f);
-                }
+                //if(boundPosition.y > top - (screenSize.y / 2f))
+                //{
+                //    boundPosition.y = top - (screenSize.y / 2f);
+                //}
+                //if(boundPosition.y < bottom + (screenSize.y / 2f))
+                //{
+                //    boundPosition.y = bottom + (screenSize.y / 2f);
+                //}
                 transform.position = boundPosition;
             }
         }

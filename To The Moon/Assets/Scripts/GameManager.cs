@@ -48,6 +48,11 @@ public class GameManager : Singleton<GameManager>
         {
             UIManager.Instance.HideGameOver();
         }
+
+        if(scene.name.Equals("Space"))
+        {
+
+        }
     }
 
     public void LoadLevel(int level = 1)
