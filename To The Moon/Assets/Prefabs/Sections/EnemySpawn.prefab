@@ -126,10 +126,12 @@ MonoBehaviour:
   Tags:
   - enemy
   CreatesTags:
-  - section1
+  - energy
+  - crossroad
+  - star
   Exits: {fileID: 5429610467432021341}
   Bounds: {fileID: 2335191963266851198}
-  DeadEndChance: 100
+  DeadEndChance: 50
 --- !u!1 &2985182466345642372
 GameObject:
   m_ObjectHideFlags: 0

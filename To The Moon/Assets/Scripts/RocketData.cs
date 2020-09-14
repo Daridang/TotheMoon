@@ -9,6 +9,7 @@ public class RocketData : ScriptableObject
     [SerializeField] private float _fuelBurnSpeed;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _acceleration;
     [SerializeField] private bool _isUnlocked;
     [SerializeField] private bool _isSelected;
 
@@ -20,4 +21,5 @@ public class RocketData : ScriptableObject
     public float RotationSpeed { get => _rotationSpeed; set => _rotationSpeed = value; }
     public bool IsUnlocked { get => _isUnlocked; set => _isUnlocked = value; }
     public bool IsSelected { get => _isSelected; set => _isSelected = value; }
+    public float Acceleration { get => _acceleration; set => _acceleration = value; }
 }

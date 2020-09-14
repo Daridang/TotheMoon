@@ -50,7 +50,6 @@ MonoBehaviour:
   - star
   CreatesTags:
   - crossroad
-  - energy
   - enemy
   Exits: {fileID: 7515926898443137254}
   Bounds: {fileID: 251202077350997189}

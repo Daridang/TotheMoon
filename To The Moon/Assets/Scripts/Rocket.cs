@@ -15,6 +15,7 @@ public class Rocket : MonoBehaviour
     private Rigidbody _rigidBody;
     private SimpleTouchController _leftController;
     private SimpleTouchController _rightController;
+    private float _acceleration;
 
     [SerializeField] private RocketData _rocketData;
     [SerializeField] private float _invokeTime = 2f;
@@ -25,6 +26,7 @@ public class Rocket : MonoBehaviour
 
     [SerializeField] private ParticleSystem _engine;
     [SerializeField] private ParticleSystem _explode;
+    [SerializeField] private ParticleSystem _teleportation;
 
     [SerializeField] private bool IsGrounded { get; set; } = false;
     public RocketData RocketData { get => _rocketData; set => _rocketData = value; }
@@ -94,6 +96,9 @@ public class Rocket : MonoBehaviour
                 Destroy(other.gameObject);
                 UIManager.Instance.ShieldProgress.fillAmount += 1f;
                 break;
+            case "Teleport":
+                GameManager.Instance.GenerateNextLevel(gameObject.transform);
+                break;
             default:
                 break;
         }
@@ -123,7 +128,18 @@ public class Rocket : MonoBehaviour
     {
         if(!collision.collider.CompareTag("Friendly") && !collision.collider.CompareTag("Finish"))
         {
-            UIManager.Instance.ShieldProgress.fillAmount -= 0.2f;
+            if (UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
+            {
+                state = State.Dying;
+                _audioSource.Stop();
+                _audioSource.PlayOneShot(_deathExplosion);
+                _explode.Play();
+                GameManager.Instance.GameOver();
+            }
+            else
+            {
+                UIManager.Instance.ShieldProgress.fillAmount -= 0.02f;
+            }
         }
     }
 
@@ -169,6 +185,7 @@ public class Rocket : MonoBehaviour
     {
         if(_leftController.TouchPresent)
         {
+            _acceleration = _leftController.GetTouchPosition.y * RocketData.Acceleration;
             _rigidBody.AddRelativeForce(Vector3.up * _leftController.GetTouchPosition.y * RocketData.MovementSpeed);
             if(!_audioSource.isPlaying)
             {
@@ -188,6 +205,16 @@ public class Rocket : MonoBehaviour
         }
         else
         {
+            if(_acceleration > 0)
+            {
+                _rigidBody.AddRelativeForce(Vector3.up * _acceleration);
+                _acceleration -= Time.deltaTime;
+            }
+            else
+            {
+                _rigidBody.AddRelativeForce(Vector3.up * _acceleration);
+                _acceleration += Time.deltaTime;
+            }
             _audioSource.Stop();
             _engine.Stop();
         }

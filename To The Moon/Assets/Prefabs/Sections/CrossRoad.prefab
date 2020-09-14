@@ -227,7 +227,7 @@ MonoBehaviour:
   - enemy
   Exits: {fileID: 6149866613200110152}
   Bounds: {fileID: 4497172285568507499}
-  DeadEndChance: 1
+  DeadEndChance: 10
 --- !u!1 &7238865550070997956
 GameObject:
   m_ObjectHideFlags: 0

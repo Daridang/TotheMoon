@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public Transform _playerSpawn;
+    [SerializeField] private GameObject _levelGenerator;
+
     private string _currentLevelName = string.Empty;
     private int currentSceneIndex;
+    private GameObject _generator;
+    private GameObject _rocket;
 
     public int StarsInCurrentLevel { get; set; }
     public int DeathCount { get; set; }
@@ -13,6 +19,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
     public void GameOver()
@@ -31,7 +38,7 @@ public class GameManager : Singleton<GameManager>
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if(!scene.name.Equals("Main") && !scene.name.Equals("Shop") && !scene.name.Equals("SelectLevel"))
+        if (!scene.name.Equals("Main") && !scene.name.Equals("Shop") && !scene.name.Equals("SelectLevel") && !scene.name.Equals("Space"))
         {
             StarsInCurrentLevel = 0;
             UIManager.Instance.ToggleHUD(true);
@@ -41,17 +48,53 @@ public class GameManager : Singleton<GameManager>
             int selectedRocketIndex = DataManager.Instance.SelectedRocketIndex;
             GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
             r.transform.localPosition = new Vector3(0f, 1f, 0);
-            GameObject rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
+            _rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
+            //_rocket.GetComponent<Rocket>().RocketData.Acceleration = 0;
         }
 
-        if(scene.name.Equals("Main"))
+        if (scene.name.Equals("Main"))
         {
             UIManager.Instance.HideGameOver();
         }
 
-        if(scene.name.Equals("Space"))
+        if (scene.name.Equals("Space"))
         {
+            LevelGenerator.Scripts.LevelGenerator generator = Instantiate(_levelGenerator.GetComponent<LevelGenerator.Scripts.LevelGenerator>(), new Vector3(0, 0, 0), Quaternion.identity);
+            generator.Init();
+            _generator = generator.gameObject;
 
+            StarsInCurrentLevel = 0;
+            UIManager.Instance.ToggleHUD(true);
+            UIManager.Instance.HideGameOver();
+            UIManager.Instance.EnergyProgress.fillAmount = 1f;
+            int selectedRocketIndex = DataManager.Instance.SelectedRocketIndex;
+            GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
+            r.transform.localPosition = new Vector3(0f, 1f, 0);
+            _rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
+            _rocket.GetComponent<Rigidbody>().useGravity = false;
+        }
+    }
+
+    public void GenerateNextLevel(Transform transform)
+    {
+        Destroy(_generator);
+        Destroy(_rocket);
+        LevelGenerator.Scripts.LevelGenerator generator = Instantiate(_levelGenerator.GetComponent<LevelGenerator.Scripts.LevelGenerator>(), transform.position, Quaternion.identity);
+        generator.Init();
+        _generator = generator.gameObject;
+        InitRocket();
+    }
+
+    public void InitRocket()
+    {
+        
+        if (_playerSpawn != null)
+        {
+            int selectedRocketIndex = DataManager.Instance.SelectedRocketIndex;
+            GameObject r = GetComponent<RocketsArray>().PlayerRocketPrefabs[selectedRocketIndex];
+            
+            _rocket = Instantiate(r, _generator.GetComponentInChildren<Transform>().position, _playerSpawn.rotation);
+            _rocket.GetComponent<Rigidbody>().useGravity = false;
         }
     }
 

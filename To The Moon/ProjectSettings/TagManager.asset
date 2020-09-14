@@ -15,6 +15,7 @@ TagManager:
   - LeftTouch
   - RightTouch
   - Enemy
+  - Teleport
   layers:
   - Default
   - TransparentFX

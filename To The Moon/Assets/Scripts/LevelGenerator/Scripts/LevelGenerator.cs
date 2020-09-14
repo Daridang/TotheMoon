@@ -60,15 +60,28 @@ namespace LevelGenerator.Scripts
 
         protected void Start()
         {
+            //if (Seed != 0)
+            //    RandomService.SetSeed(Seed);
+            //else
+            //    Seed = RandomService.Seed;
+            
+            //CheckRuleIntegrity();
+            //LevelSize = MaxLevelSize;
+            //CreateInitialSection();
+            ////DeactivateBounds();
+            //GameManager.Instance.InitRocket();
+        }
+
+        public void Init()
+        {
             if (Seed != 0)
                 RandomService.SetSeed(Seed);
             else
                 Seed = RandomService.Seed;
-            
+
             CheckRuleIntegrity();
             LevelSize = MaxLevelSize;
             CreateInitialSection();
-            DeactivateBounds();
         }
 
         protected void CheckRuleIntegrity()

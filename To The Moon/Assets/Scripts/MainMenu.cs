@@ -64,10 +64,9 @@ public class MainMenu : MonoBehaviour
 
     public void OpenEndlessRunScene()
     {
-        //SoundManager.Instance.PlayClickedSound();
-        //SceneManager.LoadScene("EndlessRun");
-        //gameObject.SetActive(false);
-        Debug.Log("TODO Endless run gameplay");
+        SoundManager.Instance.PlayClickedSound();
+        SceneManager.LoadScene("Space");
+        gameObject.SetActive(false);
     }
 
     public void Settings()
