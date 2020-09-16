@@ -17,9 +17,6 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject _networkMessage;
     [SerializeField] private GameObject _videoNotReady;
 
-    [SerializeField] private Text _debugText;
-    string s1 = "";
-
     public Image EnergyProgress { get => _energyProgress; set => _energyProgress = value; }
     public Image ShieldProgress { get => _shieldProgress; set => _shieldProgress = value; }
 
@@ -41,12 +38,6 @@ public class UIManager : Singleton<UIManager>
     public void SetVisibilityForVideoMessage(bool enabled)
     {
         _videoNotReady.SetActive(enabled);
-    }
-
-    public void SetDebugText(string s)
-    {
-        s1 += "\n" + s;
-        _debugText.text = s1;
     }
 
     public void DoubleReward()

@@ -28,6 +28,7 @@ public class SwipeManager : MonoBehaviour
     [SerializeField] private GameObject _selectButton;
     [SerializeField] private GameObject _notEnoughStarsPanel;
     [SerializeField] private TextMeshProUGUI _selectBtnText;
+    [SerializeField] private TextMeshProUGUI _starBonusCount;
     [SerializeField] private Text _unlockText;
     [SerializeField] private float _itemMovementSpeed = 3f;
 
@@ -105,6 +106,8 @@ public class SwipeManager : MonoBehaviour
             lastDistance += _distanceBetweenObjects;
             _gameObjects[i].transform.position = new Vector3(lastDistance, 0, 0);
         }
+
+        _starBonusCount.text = DataManager.Instance.StarBonus.ToString();
     }
 
     private void Start()
@@ -212,6 +215,8 @@ public class SwipeManager : MonoBehaviour
             _unlockText.text = "Unlock";
             _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
         }
+
+        _starBonusCount.text = DataManager.Instance.StarBonus.ToString();
     }
 
     public void MoveLeft()
