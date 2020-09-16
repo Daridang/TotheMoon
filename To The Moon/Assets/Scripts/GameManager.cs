@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
@@ -11,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     private int currentSceneIndex;
     private GameObject _generator;
     private GameObject _rocket;
+    private bool isConnectedToNetwork = false;
+
 
     public int StarsInCurrentLevel { get; set; }
     public int DeathCount { get; set; }
@@ -147,6 +151,29 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.BonusCount += 1;
         UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
         GameManager.Instance.StarsInCurrentLevel += 1;
+    }
+
+    public bool IsConnected()
+    {
+        StartCoroutine(CheckInternetConnection(IsConnected =>
+        {
+            isConnectedToNetwork = IsConnected;
+        }));
+        return isConnectedToNetwork;
+    }
+
+    private IEnumerator CheckInternetConnection(Action<bool> action)
+    {
+        UnityWebRequest request = new UnityWebRequest("http://google.com");
+        yield return request.SendWebRequest();
+        if (request.error != null)
+        {
+            action(false);
+        }
+        else
+        {
+            action(true);
+        }
     }
 
     private void OnDisable()

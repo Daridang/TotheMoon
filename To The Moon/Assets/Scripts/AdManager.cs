@@ -21,13 +21,21 @@ public class AdManager : Singleton<AdManager>
 
     public void ShowAdForShieldReward()
     {
-        if(Advertisement.IsReady(_shieldReward))
+        if(GameManager.Instance.IsConnected())
         {
-            Advertisement.Show(_shieldReward);
+            if(Advertisement.IsReady(_shieldReward))
+            {
+                Advertisement.Show(_shieldReward);
+            }
+            else
+            {
+                UIManager.Instance.SetVisibilityForVideoMessage(true);
+                Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
+            }
         }
         else
         {
-            Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
+            UIManager.Instance.SetVisibilityForNetworkMessage(true);
         }
     }
 
@@ -40,6 +48,7 @@ public class AdManager : Singleton<AdManager>
         }
         else
         {
+            UIManager.Instance.SetVisibilityForVideoMessage(true);
             Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
         }
     }

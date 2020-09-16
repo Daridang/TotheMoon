@@ -28,9 +28,12 @@ public class AdsListener : MonoBehaviour, IUnityAdsListener
                 //}
                 break;
             case "ShieldReward":
-                UIManager.Instance.ShieldProgress.fillAmount = 1f;
-                GameManager.Instance.LoadLevelBegin();
-                GameManager.Instance.DeathCount = 0;
+                if(showResult == ShowResult.Finished)
+                {
+                    UIManager.Instance.ShieldProgress.fillAmount = 1f;
+                    GameManager.Instance.LoadLevelBegin();
+                    GameManager.Instance.DeathCount = 0;
+                }
                 break;
             default:
                 break;
@@ -43,17 +46,20 @@ public class AdsListener : MonoBehaviour, IUnityAdsListener
         if(placementId == myPlacementId)
         {
             // Optional actions to take when the placement becomes ready(For example, enable the rewarded ads button)
+            //UIManager.Instance.SetDebugText(placementId);
         }
     }
 
     public void OnUnityAdsDidError(string message)
     {
         // Log the error.
+        //UIManager.Instance.SetDebugText(message);
     }
 
     public void OnUnityAdsDidStart(string placementId)
     {
         // Optional actions to take when the end-users triggers an ad.
+        //UIManager.Instance.SetDebugText(placementId);
     }
 
 }
