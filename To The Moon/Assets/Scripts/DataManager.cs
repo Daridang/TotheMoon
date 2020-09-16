@@ -39,7 +39,7 @@ public class DataManager : Singleton<DataManager>
 
     public int CheckLevelIsUnlocked(string name)
     {
-        return PlayerPrefs.GetInt(name);
+        return PlayerPrefs.GetInt(name, 0);
     }
 
     public void SetLevelUnlocked(string name)

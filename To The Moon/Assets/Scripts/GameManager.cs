@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     private GameObject _generator;
     private GameObject _rocket;
     private bool isConnectedToNetwork = false;
+    private List<string> _sceneNames;
 
 
     public int StarsInCurrentLevel { get; set; }
@@ -23,7 +25,33 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+    }
+
+    public int GetLevelCount()
+    {
+        int sceneCountInBuildSettings = SceneManager.sceneCountInBuildSettings;
+        _sceneNames = new List<string>();
+        for (int i = 0; i < sceneCountInBuildSettings; i++)
+        {
+            //string name1 = SceneManager.GetSceneByBuildIndex(i).name;
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string name1 = GetSceneNameFromScenePath(path);
+            Debug.Log("wtf: " + name1 + "scenes: " + sceneCountInBuildSettings);
+            if (name1.StartsWith("Level"))
+            {
+                _sceneNames.Add(name1);
+            }
+        }
+        return _sceneNames.Count;
+    }
+
+    private static string GetSceneNameFromScenePath(string scenePath)
+    {
+        // Unity's asset paths always use '/' as a path separator
+        var sceneNameStart = scenePath.LastIndexOf("/", StringComparison.Ordinal) + 1;
+        var sceneNameEnd = scenePath.LastIndexOf(".", StringComparison.Ordinal);
+        var sceneNameLength = sceneNameEnd - sceneNameStart;
+        return scenePath.Substring(sceneNameStart, sceneNameLength);
     }
 
     public void GameOver()
