@@ -45,3 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collected: {fileID: 8300000, guid: c265c6ef075f6c74aa70c4afbfd76a0b, type: 3}
   _mainMenuBtns: {fileID: 8300000, guid: e1afab29b410328488228d3e8bafc467, type: 3}
+  mixer: {fileID: 24100000, guid: 59c3f9760e2a8bf4698b4274e8af5a58, type: 2}
+  audioSettings:
+  - slider: {fileID: 0}
+    exposedParam: musicVol
+  - slider: {fileID: 0}
+    exposedParam: sfxVol

@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameObject _hud;
     [SerializeField] private GameObject _infoPanel;
+    [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private Button _endlessRunBtnImage;
     [SerializeField] private Button _infoButton;
     [SerializeField] private Sprite _endlessRunEnabled;
@@ -72,6 +73,13 @@ public class MainMenu : MonoBehaviour
     public void Settings()
     {
         SoundManager.Instance.PlayClickedSound();
+        _settingsPanel.SetActive(true);
+    }
+
+    public void HideSettings()
+    {
+        SoundManager.Instance.PlayClickedSound();
+        _settingsPanel.SetActive(false);
     }
 
     public void ShareOnFacebook()
