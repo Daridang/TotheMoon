@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a1ad5e423584d42b8fc1fa4bfe7a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _getShieldBtn: {fileID: 0}
 --- !u!1 &8846671676226805190
 GameObject:
   m_ObjectHideFlags: 0

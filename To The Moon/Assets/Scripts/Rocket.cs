@@ -20,13 +20,12 @@ public class Rocket : MonoBehaviour
     [SerializeField] private RocketData _rocketData;
     [SerializeField] private float _invokeTime = 2f;
     [SerializeField] private AudioClip _mainEngine;
-    [SerializeField] private AudioClip _deathExplosion;
     [SerializeField] private AudioClip _landing;
     [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] private ParticleSystem _engine;
-    [SerializeField] private ParticleSystem _explode;
-    [SerializeField] private ParticleSystem _teleportation;
+
+    [SerializeField] private GameObject _deathExplode;
 
     [SerializeField] private bool IsGrounded { get; set; } = false;
     public RocketData RocketData { get => _rocketData; set => _rocketData = value; }
@@ -96,18 +95,7 @@ public class Rocket : MonoBehaviour
     {
         if(!collision.collider.CompareTag("Friendly") && !collision.collider.CompareTag("Finish"))
         {
-            if (UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
-            {
-                state = State.Dying;
-                _audioSource.Stop();
-                _audioSource.PlayOneShot(_deathExplosion);
-                _explode.Play();
-                GameManager.Instance.GameOver();
-            }
-            else
-            {
-                UIManager.Instance.ShieldProgress.fillAmount -= 0.02f;
-            }
+            ReactOnObstacle();
         }
     }
 
@@ -124,10 +112,9 @@ public class Rocket : MonoBehaviour
         if(UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
         {
             state = State.Dying;
-            _audioSource.Stop();
-            _audioSource.PlayOneShot(_deathExplosion);
-            _explode.Play();
+            Instantiate(_deathExplode, gameObject.transform.position, gameObject.transform.rotation);
             GameManager.Instance.GameOver();
+            Destroy(gameObject);
         }
         else
         {
