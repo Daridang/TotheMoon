@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6035685854312799590}
   - component: {fileID: 3357458747837720400}
   - component: {fileID: 9053536634698390441}
-  - component: {fileID: 1637520812664796449}
   - component: {fileID: 3665196597480561439}
+  - component: {fileID: 7885872991535540354}
   m_Layer: 0
   m_Name: LowPolyShield
   m_TagString: Shield
@@ -81,21 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1637520812664796449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7320682105933721461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d243ad15571f34180dfc768e03c8da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeedX: 0
-  rotationSpeedY: 100
-  rotationSpeedZ: 0
 --- !u!135 &3665196597480561439
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -109,3 +94,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0.04646556}
+--- !u!114 &7885872991535540354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320682105933721461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34480293f000b8f42bfd54428c429866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explode: {fileID: 1248365930086534, guid: 5ac3e80552c8e474cb91431516daee83, type: 3}
+  rotationSpeedX: 0
+  rotationSpeedY: 50
+  rotationSpeedZ: 0
+  _floatRange:
+    min: 0.5
+    max: 1

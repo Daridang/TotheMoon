@@ -37,6 +37,11 @@ public class SoundManager : Singleton<SoundManager>
         audioSettings[(int)AudioGroups.Sound].SetExposedParam(value);
     }
 
+    public void PlayCollectedSound(AudioSource audioSource)
+    {
+        audioSource.PlayOneShot(_collected);
+    }
+
     public void PlayCollectingSound(Vector3 position)
     {
         AudioSource.PlayClipAtPoint(_collected, position);

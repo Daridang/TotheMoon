@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6525592613949843667}
   - component: {fileID: 8668469915568892427}
   - component: {fileID: 5292513343963317013}
-  - component: {fileID: -7195060901245750577}
+  - component: {fileID: 7148463739425048118}
   m_Layer: 0
-  m_Name: Fuel Capsule
+  m_Name: EnergyBonus
   m_TagString: Fuel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7195060901245750577
+--- !u!114 &7148463739425048118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,12 +104,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4823677035461581424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d243ad15571f34180dfc768e03c8da, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b8643abe39c42e4e8d82ac6166944cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explode: {fileID: 1248365930086534, guid: 5ac3e80552c8e474cb91431516daee83, type: 3}
   rotationSpeedX: 0
   rotationSpeedY: 0
   rotationSpeedZ: 50
+  _floatRange:
+    min: 0.5
+    max: 1
 --- !u!1001 &2512600291636457459
 PrefabInstance:
   m_ObjectHideFlags: 0

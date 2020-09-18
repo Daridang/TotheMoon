@@ -31,22 +31,6 @@ public class Rocket : MonoBehaviour
     [SerializeField] private bool IsGrounded { get; set; } = false;
     public RocketData RocketData { get => _rocketData; set => _rocketData = value; }
 
-    private void OnEnable()
-    {
-        GameEvents.Instance.onCollectableFound += OnCollectableFound;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.Instance.onCollectableFound -= OnCollectableFound;
-    }
-
-    private void OnCollectableFound()
-    {
-        SoundManager.Instance.PlayCollectingSound(gameObject.transform.position);
-        UIManager.Instance.EnergyProgress.fillAmount += 1f;
-    }
-
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -80,22 +64,6 @@ public class Rocket : MonoBehaviour
 
         switch(other.gameObject.tag)
         {
-            //TODO add Particle Effect for collectables
-
-            case "Fuel":
-                GameEvents.Instance.CollectableFound();
-                Destroy(other.gameObject);
-                break;
-            case "StarBonus":
-                SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
-                GameManager.Instance.StarBonusFound();
-                Destroy(other.gameObject);
-                break;
-            case "Shield":
-                SoundManager.Instance.PlayCollectingSound(other.gameObject.transform.position);
-                Destroy(other.gameObject);
-                UIManager.Instance.ShieldProgress.fillAmount += 1f;
-                break;
             case "Teleport":
                 GameManager.Instance.GenerateNextLevel(gameObject.transform);
                 break;

@@ -774,6 +774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hud: {fileID: 485973770}
   _infoPanel: {fileID: 1196985662}
+  _settingsPanel: {fileID: 0}
   _endlessRunBtnImage: {fileID: 1610637034014157890}
   _infoButton: {fileID: 6925253794208394767}
   _endlessRunEnabled: {fileID: 21300000, guid: 526adbd43b7e0f4439e59742e7c56a73, type: 3}
@@ -2681,6 +2682,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5897730885850835441}
     m_Modifications:
+    - target: {fileID: 7646145595926522100, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145595926522100, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145595926522100, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145595926522100, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145595926522100, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7646145596105211600, guid: f8e084169dd57cf41bb9a17814e98830,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -2695,6 +2721,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145596105211600, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145596105211600, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145596105211600, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7646145596727696859, guid: f8e084169dd57cf41bb9a17814e98830,
         type: 3}
@@ -2825,6 +2866,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SettingsPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646145597629714934, guid: f8e084169dd57cf41bb9a17814e98830,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8e084169dd57cf41bb9a17814e98830, type: 3}

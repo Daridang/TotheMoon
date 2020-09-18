@@ -4729,9 +4729,9 @@ GameObject:
   - component: {fileID: 1973195360381820540}
   - component: {fileID: 5214811931789632133}
   - component: {fileID: 2541016212069344482}
-  - component: {fileID: 2541016212069344485}
+  - component: {fileID: 4590086949245642764}
   m_Layer: 0
-  m_Name: LowPolyStar2
+  m_Name: LowPolyStar
   m_TagString: StarBonus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4811,7 +4811,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0.000000029802322, y: 0.05278638, z: 0}
---- !u!114 &2541016212069344485
+--- !u!114 &4590086949245642764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4820,9 +4820,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5792312871695685209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6d243ad15571f34180dfc768e03c8da, type: 3}
+  m_Script: {fileID: 11500000, guid: 58ebbefef506ad246954e9611629ab57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explode: {fileID: 1248365930086534, guid: 9fd558944609f8c46ab0c9d14106c7e6, type: 3}
   rotationSpeedX: 0
-  rotationSpeedY: 100
+  rotationSpeedY: 50
   rotationSpeedZ: 0
+  _floatRange:
+    min: 0
+    max: 0

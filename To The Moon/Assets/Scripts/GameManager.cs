@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     private bool isConnectedToNetwork = false;
     private List<string> _sceneNames;
 
+    private List<Interactive> _interactiveObjects;
 
     public int StarsInCurrentLevel { get; set; }
     public int DeathCount { get; set; }
@@ -25,6 +27,19 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        _interactiveObjects = new List<Interactive>();
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < _interactiveObjects.Count; i++)
+        {
+            Interactive interactive = _interactiveObjects[i];
+            if(interactive is ICollectable collectable)
+            {
+                collectable.CollectableAction();
+            }
+        }
     }
 
     public int GetLevelCount()
@@ -69,6 +84,14 @@ public class GameManager : Singleton<GameManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        _interactiveObjects.Clear();
+        _interactiveObjects = FindObjectsOfType<Interactive>().ToList();
+
+        foreach(var obj in _interactiveObjects)
+        {
+            obj.OnDestroyObject += InteractiveObjectOnDestroy;
+        }
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (!scene.name.Equals("Main") && !scene.name.Equals("Shop") && !scene.name.Equals("SelectLevel") && !scene.name.Equals("Space"))
         {
@@ -105,6 +128,12 @@ public class GameManager : Singleton<GameManager>
             _rocket = Instantiate(r, r.transform.localPosition, r.transform.rotation);
             _rocket.GetComponent<Rigidbody>().useGravity = false;
         }
+    }
+
+    private void InteractiveObjectOnDestroy(Interactive obj)
+    {
+        obj.OnDestroyObject -= InteractiveObjectOnDestroy;
+        _interactiveObjects.Remove(obj);
     }
 
     public void GenerateNextLevel(Transform transform)
@@ -178,7 +207,7 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Instance.BonusCount += 1;
         UIManager.Instance.StarBonus.text = UIManager.Instance.BonusCount.ToString();
-        GameManager.Instance.StarsInCurrentLevel += 1;
+        StarsInCurrentLevel += 1;
     }
 
     public bool IsConnected()
