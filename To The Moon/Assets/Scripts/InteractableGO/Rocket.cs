@@ -173,11 +173,11 @@ public class Rocket : MonoBehaviour
                 _rigidBody.AddRelativeForce(Vector3.up * _acceleration);
                 _acceleration -= Time.deltaTime;
             }
-            else
-            {
-                _rigidBody.AddRelativeForce(Vector3.up * _acceleration);
-                _acceleration += Time.deltaTime;
-            }
+            //else
+            //{
+            //    _rigidBody.AddRelativeForce(Vector3.up * _acceleration);
+            //    _acceleration += Time.deltaTime;
+            //}
             _audioSource.Stop();
             _engine.Stop();
         }

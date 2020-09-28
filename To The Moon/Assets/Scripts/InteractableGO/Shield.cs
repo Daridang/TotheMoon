@@ -24,6 +24,7 @@ public class Shield : Interactive, ICollectable
 
     protected override void InteractWithPlayer(GameObject player)
     {
+        GameManager.Instance.CreateBonusPopUp(gameObject.transform.position, _shieldBonus);
         player.GetComponent<Rocket>().ShieldOn();
         UIManager.Instance.ShieldProgress.fillAmount += _shieldBonus;
     }

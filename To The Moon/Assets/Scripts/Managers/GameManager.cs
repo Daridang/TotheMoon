@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 {
     public Transform _playerSpawn;
     [SerializeField] private GameObject _levelGenerator;
+    [SerializeField] private Transform _textPopUp;
 
     private string _currentLevelName = string.Empty;
     private int currentSceneIndex;
@@ -218,6 +219,14 @@ public class GameManager : Singleton<GameManager>
         DataManager.Instance.SetLevelUnlocked("Level" + currentBuildIndex);
         DataManager.Instance.LastUnlockedLevel = currentBuildIndex;
         DeathCount = 0;
+    }
+
+    public BonusPopUp CreateBonusPopUp(Vector3 pos, float amount)
+    {
+        Transform bonusTransform = Instantiate(_textPopUp, pos, Quaternion.identity);
+        BonusPopUp bonusPopUp = bonusTransform.GetComponent<BonusPopUp>();
+        bonusPopUp.Setup(amount);
+        return bonusPopUp;
     }
 
     public void StarBonusFound()

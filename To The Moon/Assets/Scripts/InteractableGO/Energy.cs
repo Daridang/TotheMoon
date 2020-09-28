@@ -24,6 +24,7 @@ public class Energy : Interactive, ICollectable
 
     protected override void InteractWithPlayer(GameObject player)
     {
+        GameManager.Instance.CreateBonusPopUp(gameObject.transform.position, _energyBonus);
         UIManager.Instance.EnergyProgress.fillAmount += _energyBonus;
     }
 }

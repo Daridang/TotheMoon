@@ -22,6 +22,9 @@ public class SwipeManager : MonoBehaviour
     [SerializeField] private int _distanceBetweenObjects;
     [SerializeField] private TextMeshProUGUI _rocketName;
     [SerializeField] private TextMeshProUGUI _price;
+    [SerializeField] private Text _speed;
+    [SerializeField] private Text _energy;
+    [SerializeField] private Text _acceleration;
     [SerializeField] private GameObject _leftArrow;
     [SerializeField] private GameObject _rightArrow;
     [SerializeField] private GameObject _buyButton;
@@ -114,6 +117,9 @@ public class SwipeManager : MonoBehaviour
     {
         _rocketName.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Name;
         _price.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Price.ToString();
+        _speed.text = (_gameObjects[0].GetComponent<StoreItem>().RocketData.MovementSpeed * 10).ToString();
+        _energy.text = (100 * _gameObjects[0].GetComponent<StoreItem>().RocketData.FuelBurnSpeed).ToString();
+        _acceleration.text = _gameObjects[0].GetComponent<StoreItem>().RocketData.Acceleration.ToString();
         _leftArrow.SetActive(false);
         UpdateShopUI();
     }
@@ -235,6 +241,9 @@ public class SwipeManager : MonoBehaviour
 
                 _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
                 _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+                _speed.text = (_gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.MovementSpeed * 10).ToString();
+                _energy.text = (100 * _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.FuelBurnSpeed).ToString();
+                _acceleration.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Acceleration.ToString();
             }
             Arrows();
             UpdateShopUI();
@@ -257,6 +266,9 @@ public class SwipeManager : MonoBehaviour
 
                 _rocketName.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Name;
                 _price.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Price.ToString();
+                _speed.text = (_gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.MovementSpeed * 10).ToString();
+                _energy.text = (100 * _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.FuelBurnSpeed).ToString();
+                _acceleration.text = _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.Acceleration.ToString();
             }
             Arrows();
             UpdateShopUI();
