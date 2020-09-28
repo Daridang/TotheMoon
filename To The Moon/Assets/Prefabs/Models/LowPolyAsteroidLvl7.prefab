@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e0de80cb49ef4da7907cb177015c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  _speed: 0
+  _puff: {fileID: 0}
 --- !u!1001 &419391860950238348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,6 +95,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3438716413682474106, guid: ef7840697c56a254a83ad871448448b9,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2565589485148034548, guid: ef7840697c56a254a83ad871448448b9, type: 3}

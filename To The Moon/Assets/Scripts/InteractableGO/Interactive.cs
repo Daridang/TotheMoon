@@ -17,7 +17,7 @@ public abstract class Interactive : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Instantiate(_explodeParticles, gameObject.transform.position, Quaternion.identity);
-            InteractWithPlayer();
+            InteractWithPlayer(other.gameObject);
             OnDestroyObject?.Invoke(this);
             Destroy(gameObject);
         }
@@ -25,6 +25,6 @@ public abstract class Interactive : MonoBehaviour
 
     protected abstract void Init();
 
-    protected abstract void InteractWithPlayer();
+    protected abstract void InteractWithPlayer(GameObject player);
 
 }

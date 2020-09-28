@@ -537,10 +537,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4742006124959712}
   - component: {fileID: 95761197108965826}
-  - component: {fileID: 368160243601536194}
   - component: {fileID: 2467494939095416515}
   - component: {fileID: 6004412809265918751}
   - component: {fileID: 8693380467304353000}
+  - component: {fileID: 2039142278497945113}
   m_Layer: 0
   m_Name: Condor
   m_TagString: Enemy
@@ -583,20 +583,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &368160243601536194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866390378080362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72e0de80cb49ef4da7907cb177015c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 3
-  _puff: {fileID: 2808591367568062779, guid: b87c8c01e35a6f042b5a8a601d4c5b78, type: 3}
 --- !u!65 &2467494939095416515
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -636,3 +622,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.3201015, z: 0.49746692}
   m_Center: {x: -3.1265985e-15, y: 0.12119925, z: 2.2200143}
+--- !u!114 &2039142278497945113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866390378080362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d818165f4807dee4aae57aeefbdb21a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explode: {fileID: 1248365930086534, guid: 6d01af723e1517e45a30ce7d32e2b9b8, type: 3}
+  _speed: 3

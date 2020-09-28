@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  _puff: {fileID: 2808591367568062779, guid: 3edb18e5286275647866a37403f1b2d4, type: 3}
+  _puff: {fileID: 198716313669570364, guid: 7c2ccbe7debad2f40b9c7007f153dad7, type: 3}
 --- !u!65 &1743943016806357237
 BoxCollider:
   m_ObjectHideFlags: 0

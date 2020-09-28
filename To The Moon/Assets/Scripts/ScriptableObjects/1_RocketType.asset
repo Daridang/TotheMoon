@@ -16,8 +16,8 @@ MonoBehaviour:
   _price: 15
   _energyAmount: 1
   _fuelBurnSpeed: 0.1
-  _movementSpeed: 2
+  _movementSpeed: 1.8
   _rotationSpeed: 2
-  _acceleration: 2
+  _acceleration: 1.5
   _isUnlocked: 1
   _isSelected: 1

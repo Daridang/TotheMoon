@@ -22,7 +22,7 @@ public class Star : Interactive, ICollectable
         gameObject.transform.Rotate(rotationAxis);
     }
 
-    protected override void InteractWithPlayer()
+    protected override void InteractWithPlayer(GameObject player)
     {
         GameManager.Instance.StarBonusFound();
     }

@@ -345,9 +345,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4783500783028288}
   - component: {fileID: 95758178092843026}
-  - component: {fileID: 1466066435}
   - component: {fileID: 1339716360689429140}
   - component: {fileID: 123190027636632705}
+  - component: {fileID: 4322710196151307779}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Enemy
@@ -390,20 +390,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1466066435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993070692023474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c72e0de80cb49ef4da7907cb177015c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 2
-  _puff: {fileID: 2808591367568062779, guid: 7012bffd7a3f70346b9995efc5fb5982, type: 3}
 --- !u!65 &1339716360689429140
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -430,3 +416,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.06, z: 0.85}
   m_Center: {x: 0, y: 0.57, z: 0.81}
+--- !u!114 &4322710196151307779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993070692023474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99dec1fa75173144f997f2ca34821450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explode: {fileID: 1248365930086534, guid: aef8f40743e8d3046ad883b79c546ff7, type: 3}
+  _speed: 2

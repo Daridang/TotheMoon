@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Shield : Interactive, ICollectable
+public class Energy : Interactive, ICollectable
 {
     [SerializeField] private GameObject _explode;
     [SerializeField] private float rotationSpeedX = 0f;
@@ -8,12 +8,12 @@ public class Shield : Interactive, ICollectable
     [SerializeField] private float rotationSpeedZ = 0f;
     [SerializeField] private FloatRange _floatRange;
     private Vector3 rotationAxis;
-    private float _shieldBonus;
+    private float _energyBonus;
 
     protected override void Init()
     {
         _explodeParticles = _explode;
-        _shieldBonus = _floatRange.RandomInRange;
+        _energyBonus = _floatRange.RandomInRange;
         rotationAxis = new Vector3(rotationSpeedX * Time.deltaTime, rotationSpeedY * Time.deltaTime, rotationSpeedZ * Time.deltaTime);
     }
 
@@ -22,8 +22,8 @@ public class Shield : Interactive, ICollectable
         gameObject.transform.Rotate(rotationAxis);
     }
 
-    protected override void InteractWithPlayer()
+    protected override void InteractWithPlayer(GameObject player)
     {
-        UIManager.Instance.ShieldProgress.fillAmount += _shieldBonus;
+        UIManager.Instance.EnergyProgress.fillAmount += _energyBonus;
     }
 }

@@ -24,6 +24,7 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] private ParticleSystem _engine;
+    [SerializeField] private ParticleSystem _shield;
 
     [SerializeField] private GameObject _deathExplode;
 
@@ -99,6 +100,11 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    public void ShieldOn()
+    {
+        _shield.Play();
+    }
+
     private void Landing()
     {
         state = State.Transcending;
@@ -112,13 +118,15 @@ public class Rocket : MonoBehaviour
         if(UIManager.Instance.ShieldProgress.fillAmount <= float.Epsilon)
         {
             state = State.Dying;
+            _shield.Stop();
+            _audioSource.Stop();
             Instantiate(_deathExplode, gameObject.transform.position, gameObject.transform.rotation);
             GameManager.Instance.GameOver();
             Destroy(gameObject);
         }
         else
         {
-            UIManager.Instance.ShieldProgress.fillAmount -= 0.1f;
+            UIManager.Instance.ShieldProgress.fillAmount -= 0.01f;
         }
     }
 
@@ -177,6 +185,7 @@ public class Rocket : MonoBehaviour
                 transform.localEulerAngles.z + _rightController.GetTouchPosition.x * -RocketData.RotationSpeed);
 
         _rigidBody.MoveRotation(rot);
+        Debug.Log("Rotation: " + rot);
     }
 
     private void OnDestroy()

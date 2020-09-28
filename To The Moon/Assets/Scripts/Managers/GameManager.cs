@@ -39,6 +39,11 @@ public class GameManager : Singleton<GameManager>
             {
                 collectable.CollectableAction();
             }
+
+            if(interactive is IEnemy enemy)
+            {
+                enemy.EnemyAction();
+            }
         }
     }
 
@@ -80,6 +85,18 @@ public class GameManager : Singleton<GameManager>
     public void LoadMainMenu()
     {
         UIManager.Instance.LoadMainMenuScene();
+    }
+
+    public void AddEnemy(Interactive enemy)
+    {
+        enemy.OnDestroyObject += InteractiveObjectOnDestroy;
+        _interactiveObjects.Add(enemy);
+    }
+
+    public void RemoveEnemy(Interactive enemy)
+    {
+        enemy.OnDestroyObject -= InteractiveObjectOnDestroy;
+        _interactiveObjects.Remove(enemy);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

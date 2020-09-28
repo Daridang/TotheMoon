@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject prefab = _prefabs[_index];
         GameObject spawn = Instantiate(prefab);
+        GameManager.Instance.AddEnemy(spawn.GetComponent<Interactive>());
         spawn.transform.localPosition = transform.position;
         spawn.transform.localPosition += new Vector3(rx.RandomInRange, randomGap.RandomInRange, 0);
     }
