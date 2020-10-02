@@ -67,6 +67,9 @@ public class Rocket : MonoBehaviour
             case "Teleport":
                 GameManager.Instance.GenerateNextLevel(gameObject.transform);
                 break;
+            case "Finish":
+                Landing();
+                break;
             default:
                 break;
         }

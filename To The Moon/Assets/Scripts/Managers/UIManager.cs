@@ -81,6 +81,7 @@ public class UIManager : Singleton<UIManager>
         _mainMenu.Hud.SetActive(false);
         _mainMenu.GetComponent<MainMenu>().EndlessRunBtnActivation();
         _gameOverUI.SetActive(false);
+        SoundManager.Instance.GameToMenu();
         SceneManager.LoadScene("Main");
         _mainMenu.gameObject.SetActive(true);
     }

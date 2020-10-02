@@ -95,20 +95,17 @@ public class SwipeManager : MonoBehaviour
         float dpi = (Screen.dpi == 0) ? defaultDPI : Screen.dpi;
         dpcm = dpi / dpcmFactor;
 
+        float lastDistance = -_distanceBetweenObjects;
+
         _gameObjects = new GameObject[GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length];
         for(int i = 0; i < GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs.Length; i++)
         {
             _gameObjects[i] = Instantiate(GameManager.Instance.GetComponent<RocketsArray>().RocketPrefabs[i]);
-        }
-        _currentObject = 0;
-        _gameObjects[_currentObject].transform.position = new Vector3();
-
-        float lastDistance = 0f;
-        for(int i = 1; i < _gameObjects.Length; i++)
-        {
             lastDistance += _distanceBetweenObjects;
             _gameObjects[i].transform.position = new Vector3(lastDistance, 0, 0);
         }
+        _currentObject = 0;
+        _gameObjects[_currentObject].transform.position = new Vector3();
 
         _starBonusCount.text = DataManager.Instance.StarBonus.ToString();
     }
@@ -172,9 +169,11 @@ public class SwipeManager : MonoBehaviour
             UpdateShopUI();
         }
         _gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.IsSelected = true;
+
         _selectBtnText.text = "Ready";
-        UpdateShopUI();
+        
         DataManager.Instance.SelectedRocketIndex = _currentObject;
+        UpdateShopUI();
     }
 
     private void Arrows()
@@ -205,7 +204,7 @@ public class SwipeManager : MonoBehaviour
             _buyButton.SetActive(false);
             _unlockText.text = "";
             _selectButton.SetActive(true);
-            if(_gameObjects[_currentObject].GetComponent<StoreItem>().RocketData.IsSelected)
+            if(_currentObject == DataManager.Instance.SelectedRocketIndex)
             {
                 _selectBtnText.text = "Ready";
             }

@@ -12,9 +12,16 @@ public class AdManager : Singleton<AdManager>
     [SerializeField] private AdsListener _listener;
 
     // Initialize the Ads listener and service:
+    // TODO initialize Advertisment listner if there were no internet connection
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        Advertisement.AddListener(_listener);
+        Advertisement.Initialize(gameId, testMode);
+    }
+
+    public void Init()
+    {
         Advertisement.AddListener(_listener);
         Advertisement.Initialize(gameId, testMode);
     }
@@ -30,6 +37,10 @@ public class AdManager : Singleton<AdManager>
             else
             {
                 UIManager.Instance.SetVisibilityForVideoMessage(true);
+                if(!Advertisement.isInitialized)
+                {
+                    Init();
+                }
                 Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
             }
         }
@@ -49,6 +60,10 @@ public class AdManager : Singleton<AdManager>
         else
         {
             UIManager.Instance.SetVisibilityForVideoMessage(true);
+            if (!Advertisement.isInitialized)
+            {
+                Init();
+            }
             Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
         }
     }

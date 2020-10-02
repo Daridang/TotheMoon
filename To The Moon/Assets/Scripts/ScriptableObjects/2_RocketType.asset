@@ -20,4 +20,4 @@ MonoBehaviour:
   _rotationSpeed: 2
   _acceleration: 1.6
   _isUnlocked: 0
-  _isSelected: 0
+  _isSelected: 1

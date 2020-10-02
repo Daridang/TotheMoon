@@ -6,6 +6,9 @@ public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField] private AudioClip _collected;
     [SerializeField] private AudioClip _mainMenuBtns;
+    [SerializeField] private AudioSource _menu;
+    [SerializeField] private AudioSource _game;
+    [SerializeField] private float _bgmFadeDuration = .5f;
 
     public AudioMixer mixer;
 
@@ -50,6 +53,23 @@ public class SoundManager : Singleton<SoundManager>
     public void PlayClickedSound()
     {
         AudioSource.PlayClipAtPoint(_mainMenuBtns, gameObject.transform.position, 0.2f);
+    }
+
+    public void MenuToGame()
+    {
+        _game.Play();
+        StartCoroutine(FadeMixerGroup.StartFade(
+            mixer, "menu", _bgmFadeDuration, 0f));
+        StartCoroutine(FadeMixerGroup.StartFade(
+            mixer, "game", _bgmFadeDuration, PlayerPrefs.GetFloat("musicVol")));
+    }
+
+    public void GameToMenu()
+    {
+        StartCoroutine(FadeMixerGroup.StartFade(
+            mixer, "game", _bgmFadeDuration, 0f));
+        StartCoroutine(FadeMixerGroup.StartFade(
+            mixer, "menu", _bgmFadeDuration, PlayerPrefs.GetFloat("musicVol")));
     }
 }
 
