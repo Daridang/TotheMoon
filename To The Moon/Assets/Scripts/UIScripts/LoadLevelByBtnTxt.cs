@@ -10,6 +10,8 @@ public class LoadLevelByBtnTxt : MonoBehaviour
     {
         if(DataManager.Instance.CheckLevelIsUnlocked("Level" + _btnText.text) == 1)
         {
+            SoundManager.Instance.PlayGameMusic();
+
             SceneManager.LoadScene("Level" + _btnText.text);
         }
     }

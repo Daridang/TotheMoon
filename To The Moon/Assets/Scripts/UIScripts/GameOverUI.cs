@@ -24,6 +24,7 @@ public class GameOverUI : MonoBehaviour
     }
 
     public void Retry() {
+        SoundManager.Instance.PlayGameMusic();
         Initiate.Fade(SceneManager.GetActiveScene().name, Color.black, 1f);
     }
 

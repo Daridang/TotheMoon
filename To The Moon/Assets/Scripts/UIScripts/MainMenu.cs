@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         SoundManager.Instance.PlayClickedSound();
-        SoundManager.Instance.MenuToGame();
+        SoundManager.Instance.PlayGameMusic();
         GameManager.Instance.LoadLevel(DataManager.Instance.LastUnlockedLevel);
         UIManager.Instance.MainMenu(false);
     }

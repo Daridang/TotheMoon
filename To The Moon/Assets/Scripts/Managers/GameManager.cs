@@ -79,6 +79,7 @@ public class GameManager : Singleton<GameManager>
     {
         StarsInCurrentLevel = 0;
         DeathCount++;
+        SoundManager.Instance.PlayLoseMusic();
         UIManager.Instance.HideHUD();
         UIManager.Instance.ShowGameOver();
     }
@@ -213,6 +214,7 @@ public class GameManager : Singleton<GameManager>
 
     public void Landed()
     {
+        SoundManager.Instance.PlayWinMusic();
         UIManager.Instance.ShowLevelComplete();
         int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
         currentBuildIndex++;

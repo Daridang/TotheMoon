@@ -101,8 +101,6 @@ MonoBehaviour:
   limitBounds: 0
   left: -5
   right: 5
-  bottom: -5
-  top: 5
 --- !u!45 &1884652982
 Skybox:
   m_ObjectHideFlags: 0
