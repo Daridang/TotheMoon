@@ -1260,11 +1260,6 @@ PrefabInstance:
       propertyPath: audioSettings.Array.data[1].slider
       value: 
       objectReference: {fileID: 527833590}
-    - target: {fileID: 8744296622942474687, guid: a9cefcbf71b6cb846ba8892f2dda4872,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9cefcbf71b6cb846ba8892f2dda4872, type: 3}
 --- !u!1 &4938830758148387773 stripped

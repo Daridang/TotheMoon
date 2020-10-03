@@ -29,6 +29,7 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         _interactiveObjects = new List<Interactive>();
+        SoundManager.Instance.PlayMenuMusic();
     }
 
     private void Update()
